@@ -1,0 +1,6 @@
+[Unit]
+Description=WiFi watchdog
+
+[Service]
+Type=oneshot
+ExecStart=/home/pi/wifi_checker/wifi_watchdog.sh

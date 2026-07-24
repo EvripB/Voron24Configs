@@ -1,0 +1,14 @@
+# Never place private recovery archives or downloaded runtime data in this
+# public repository.
+private/
+voices/
+cache/
+*.onnx
+*.wav
+*.log
+*.db
+*.mdb
+*.key
+*.pem
+*.token
+*.secret

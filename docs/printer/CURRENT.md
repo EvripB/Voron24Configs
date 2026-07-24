@@ -1,6 +1,6 @@
 # Current printer state
 
-Last reconciled: 2026-07-23
+Last reconciled: 2026-07-24
 
 This file records stable current facts. Active configuration remains the
 implementation source of truth.
@@ -29,11 +29,17 @@ Implementation: [printer.cfg](../../printer.cfg).
 - **Config-verified:** safe Z homing is X206 Y297.
 - **Config-verified:** bed mesh spans X/Y 40-260, uses a 9x9 probe grid, and
   has a 5 mm adaptive margin.
-- **Config-verified:** `PRINT_START` uses Klipper native adaptive meshing.
+- **Runtime-loaded, pending print validation (2026-07-24):** `PRINT_START`
+  supports two mesh paths. Calls that omit `MESH_MODE` retain Klipper native
+  adaptive meshing; the TradRack Orca profile supplies Orca's complete
+  first-layer bounds with `MESH_MODE=ORCA` and names the resulting runtime
+  profile `adaptive_orca`.
 - **Config-verified:** custom `PRIME_LINE`, `REQUIRE_TRADRACK`, and Talking
   Voron speech/temperature-warning functionality are active.
-- Prime-tower placement and adaptive-mesh coverage still need a permanent
-  slicer-side solution; see [WORKLOG.md](WORKLOG.md).
+- The new macro configuration loaded cleanly after restart. A two-tool Orca
+  export has also passed the generated-parameter and tower-coverage audit; an
+  actual probing run still needs validation, and tower placement still needs
+  to be retained in a reusable starter 3MF; see [WORKLOG.md](WORKLOG.md).
 
 Implementation: [printer.cfg](../../printer.cfg) and
 [macros.cfg](../../macros.cfg).
@@ -141,19 +147,35 @@ Runtime evidence: `logs/mmu.log` in the `printer_data` root.
   often used with Happy Hare disabled and filament supplied outside TradRack.
 - The Orca presets currently live only on the PC and are not version-controlled
   on the Pi.
+- The manual lane-sync convention, current audit, and preset handoff procedure
+  are recorded in [`slicer/orca/README.md`](../../slicer/orca/README.md).
 
 ## Host services
 
+- **Runtime-validated:** MainsailOS 2.2.2 on 64-bit Debian 12 Bookworm,
+  Raspberry Pi 4. The dated software/service snapshot is in
+  [HOST_INVENTORY.md](HOST_INVENTORY.md).
 - **Config-verified:** Crowsnest uses ustreamer on `/dev/video0`, port 8080,
   1920x1080, with a 30 FPS maximum.
+- **Runtime-validated:** the Raspberry Pi Linux host MCU, Talking Voron
+  service, and custom 30-second Wi-Fi watchdog timer are active. Sonar is
+  installed but disabled by configuration.
+- **Config-verified, host-audited:** `BACKUP_CFG`, Talking Voron, and audio
+  volume control require the non-upstream Klipper G-Code Shell Command
+  extension.
 - **User-confirmed historically:** direct Ethernet is configured around
   `192.168.50.2/24`; verify live interface state before network changes.
 - Configuration Git root: `/home/pi/printer_data/config`.
 - The repository is public; tracked documentation must contain no credentials.
+- **Host-audited, owner-confirmed private:** Git write authentication is stored
+  in the untracked local `origin` metadata and one local Git-repair rollback
+  copy. It was not found in tracked files or audited Git history, and no one
+  else has access to the Raspberry Pi. This is not evidence of a public leak
+  and does not block `BACKUP_CFG`.
 
-Software versions and cumulative counters are deliberately omitted because
-they change. Read versions from repository metadata and the latest successful
-Klipper/Moonraker startup logs.
+The full installation and private-backup boundary are documented in
+[RPI_REBUILD.md](RPI_REBUILD.md). Dynamic versions and cumulative counters
+remain snapshots rather than configuration truth.
 
 ## Physical facts still needing confirmation
 

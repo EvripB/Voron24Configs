@@ -140,3 +140,22 @@ make Git look clean.
 5. Do not infer a manufacturer from compatible geometry.
 6. Treat cutter/load validation as a separate motion test with its own safety
    plan.
+
+## 7. Raspberry Pi recovery
+
+Use [RPI_REBUILD.md](RPI_REBUILD.md) for the complete host procedure and
+[HOST_INVENTORY.md](HOST_INVENTORY.md) for the audited snapshot.
+
+Core constraints:
+
+1. Never perform backup/service work during an active print.
+2. Keep physical printer controllers disconnected until host Klipper is
+   compatible with their existing firmware.
+3. Restore the public configuration and Happy Hare dependencies before
+   starting Klipper.
+4. Restore Moonraker and credential state only from an encrypted private
+   backup.
+5. Validate services and configuration without movement before powering
+   hardware.
+6. Do not flash the Spider or TradRack controller merely because the SD card
+   or Raspberry Pi OS was replaced.

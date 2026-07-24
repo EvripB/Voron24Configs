@@ -2,49 +2,71 @@
 
 Last updated: 2026-07-24
 
-No critical printer fault is currently open. The July 23 multicolor print
-completed successfully.
+An intermittent gate-10 transport and toolhead-reach fault is under
+investigation. The July 23 multicolor print remains the successful 89/89
+toolchange baseline.
 
 ## Next
 
-### 1. Correct and export Orca presets
+### 1. Correct, align, and export Orca presets
 
-- Repair `PLA - TradRack` and `PETG - TradRack`; they were created from an ABS
-  base and must be checked for material identity, temperatures, cooling, and
-  maximum volumetric speed.
+- The PLA/PETG ABS-parent fault was repaired in the native JSON while
+  preserving the existing temperatures, 25 mm3/s limits, and all seven
+  TradRack zero-motion fields. The owner copied the corrected files into Orca
+  on Windows; re-audit the eventual native export before archiving it.
+  `ABS - TradRack` has already passed the same parent/ownership audit.
+- Audit material-specific temperatures, cooling, flow, and maximum volumetric
+  speed. The current values—ABS 20 mm3/s and PLA/PETG 25 mm3/s—are profile
+  limits, not completed calibrations for every brand/color.
+- **User-confirmed complete:** the fixed slot-1-to-T0/G0 through
+  slot-12-to-T11/G11 convention now has the intended Orca colors and material
+  profiles assigned. Recheck it only if lane contents change or a native
+  preset export exposes a mismatch.
 - Export and archive the actual Orca assets for:
   - `Voron 2.4 300 - TradRack 12T`
   - the direct-feed printer profile
   - the associated process and filament presets
-- Proposed tracked destination: `slicer/orca/`.
+- Save a reusable 12-slot starter 3MF so project-level lane colors and tower
+  placement are retained.
+- Use the workflow and tracked destination documented in
+  [`slicer/orca/README.md`](../../slicer/orca/README.md).
 - Audit generated G-code before printing. The current crab G-code proves the
-  TradRack start sequence; the inherited-ABS preset problem is based on the
-  owner's direct inspection in Orca.
+  TradRack start sequence, not the correctness of every preset.
 
-### 2. Align Orca tools with the Happy Hare lane map
+### 2. Make prime-tower placement persistent
 
-- Happy Hare/Mainsail currently stores gate names, materials, and colors in
-  `mmu/mmu_vars.cfg`.
-- Orca has a separate 12-tool list, and only the tools needed by the test were
-  manually colored.
-- Spoolman support is currently off and all saved spool IDs are unset.
-- Decide between a documented manual synchronization workflow and a later
-  Spoolman-based workflow. Do not assume automatic synchronization exists.
+- Orca 2.4 stores the tower position per project/plate, not in an ordinary
+  printer or process preset. Put the lane setup and tower into the reusable
+  TradRack starter 3MF.
+- The prior X188 Y52 candidate refers to Orca's exported internal tower
+  anchor, not necessarily the visual center shown by the plate-move UI.
+  Position and verify the actual Preview footprint plus its margin inside
+  X/Y40-260; recheck after changing tower or purge geometry.
+- The backward-compatible `MESH_MODE=ORCA` implementation is loaded in
+  `PRINT_START`, and the TradRack printer has mesh limits 40,40 to 260,260,
+  probe distance 27.5,27.5, margin 5, and a start line that passes Orca's
+  calculated bounds/count/algorithm. Direct-feed starts remain on Klipper
+  native adaptive meshing.
+- The configuration restarted cleanly on July 24. Slice a small two-tool job
+  and verify its generated `PRINT_START` parameters and runtime mesh bounds
+  before considering the Orca path print-validated.
+- The first exported two-tool test correctly resolved `MESH_MIN`,
+  `MESH_MAX`, `PROBE_COUNT=7,7`, and `MESH_ALGORITHM=bicubic`, but it also
+  demonstrated the physical probe-limit constraint. With the tower at about
+  X55.453 Y27.211, its first-layer extrusion reached Y21.183 while Orca had
+  to clamp the mesh minimum to Y40. Moving the visual center to Y55 only moved
+  the internal anchor to Y40.75 and left first-layer extrusion down to
+  Y34.722.
+- The corrected export with the tower's displayed center at Y70 passes the
+  slicer-side audit. It resolves a mesh of X43.9577-186.268,
+  Y42.7218-180.14, `PROBE_COUNT=7,6`, and `bicubic`; the tower's actual
+  first-layer extrusion is X50.957-119.949 and Y49.722-90.278. The Happy Hare
+  start order is preserved. Validate those bounds during the actual probing
+  run before calling the new path runtime-validated.
+- The measured positions and limitation are documented in
+  [`slicer/orca/README.md`](../../slicer/orca/README.md).
 
-### 3. Make prime-tower placement persistent
-
-- Record a default tower position that remains inside the printable and
-  probeable region so it does not need to be moved for every project.
-- The configured mesh limits are X/Y 40-260, but those numbers alone do not
-  guarantee a safe tower footprint; account for probe offsets and verify the
-  generated adaptive-mesh bounds.
-- Ensure adaptive meshing covers both the model and the tower. The successful
-  crab G-code defined the model for object exclusion but omitted the tower from
-  its object definition.
-- Choose deliberately between proper tower object bounds and a full-bed mesh;
-  do not silently rely on probing only the model.
-
-### 4. Review the completed crab print
+### 3. Review the completed crab print
 
 - Inspect color contamination, tower stability, surface quality, and actual
   waste before reducing flushing further.
@@ -53,33 +75,90 @@ completed successfully.
 - Reliability result: 89/89 toolchange operations, zero job pauses, average
   complete swap 59.7 seconds.
 
+### 4. Complete and validate the Raspberry Pi recovery plan
+
+Completed documentation:
+
+- Read-only audit of the OS, packages, enabled units, repositories, Python
+  environments, Happy Hare links, Linux host MCU, camera, Talking Voron,
+  Wi-Fi watchdog, data roots, and optional development tools.
+- Dated inventory:
+  [`HOST_INVENTORY.md`](HOST_INVENTORY.md).
+- Fresh-image recovery and non-moving validation procedure:
+  [`RPI_REBUILD.md`](RPI_REBUILD.md).
+- Credential-free source snapshots for custom services and the Linux host-MCU
+  build configuration under [`host-rebuild/`](../../host-rebuild/).
+
+Pending while the printer is idle:
+
+- Create and verify an encrypted private backup of Moonraker's SQLite
+  database, UUID/service state, network recovery data, Git authentication,
+  and any desired G-code/uploads.
+- Perform a separate Talking Voron hardening review. Its current service
+  listens on all interfaces and accepts an audio filename.
+- Treat the rebuild guide as audit-backed but not end-to-end tested until a
+  spare-card recovery or actual reimage validates it.
+
 ## Monitor
 
-### MMU unload slippage
+### Intermittent gate-10 transport and toolhead reach
 
-One recent unload reported 1937.4 mm commanded versus 1916.3 mm encoder
-movement, a nonfatal 21.1 mm discrepancy. It did not stop the successful print.
+The July 24 attempts exposed more than one failure mode under otherwise
+unchanged static configuration:
 
-Action:
+- Some long gate-10 moves produced almost no encoder movement, demonstrating
+  intermittent pickup/drive/path loss near the TradRack.
+- The cleanest later load produced full encoder movement but stopped just
+  short of the pre-extruder sensor. This is consistent with variable slack or
+  a downstream transition/sensor problem rather than encoder-measured
+  underfeed on that attempt.
+- `gate_unload_buffer: 80` and `gate_homing_max: 80` provide effectively no
+  unload under-travel reserve.
+- Gate 10 has now produced both load and unload failures. A prior unload also
+  showed 1937.4 mm commanded versus 1916.3 mm encoder movement. Treat these as
+  part of the same intermittent transport investigation, not a separate
+  monitor-only item.
 
-- Monitor future prints by gate and filament.
-- Investigate only if the warning repeats or causes a failure.
-- Check selector alignment, gear residue, spool drag, PTFE/connector
-  transitions, and drive pressure before changing thresholds or current.
+Pending:
+
+- Inspect gate-10 selector alignment, drive engagement, filament grinding,
+  spool drag, and servo action.
+- Inspect the long loose-ID Bowden, reducer/connector lips, PTFE seating, ECAS
+  entrance, and pre-extruder sensor operation.
+- Re-establish a known unloaded state before controlled comparisons with
+  another gate and a fixed toolhead position.
+- After the mechanical path is reliable, restore deliberate load and unload
+  homing margin instead of masking a transport failure with distance alone.
+
+### FlowGuard false compression trip
+
+A sustained solid-infill segment produced a tension-only Belay/FlowGuard
+`Compression stuck` warning at 80.19 mm of modeled relief. The preceding
+open-sensor interval reached approximately 78.4 mm before tension returned,
+leaving essentially no margin at the current 80 mm threshold.
+
+Pending action, while the printer is idle:
+
+- Verify Belay travel, switch actuation, PTFE seating, and sensor polarity.
+- Before changing the relief limit, run a controlled comparison with
+  `MMU_TEST_CONFIG SYNC_TO_EXTRUDER=0` on a small, low-flow, single-color
+  print. This is a runtime-only test: restore it afterward with
+  `MMU_TEST_CONFIG SYNC_TO_EXTRUDER=1`; no restart or configuration edit is
+  required.
+- If those checks pass, increase `flowguard_max_relief` from 80 mm to 100 mm,
+  restart when separately authorized, and validate against sustained
+  extrusion while retaining the encoder-based protection.
 
 ## Backlog
 
 - Evaluate a purge bucket/Blobifier workflow to purge most transition material
   off-print and retain only the minimum priming structure. Blobifier is
   currently disabled.
-- Physically confirm hotend, outer toolhead housing, extruder motor, and final
-  PTFE connector dimensions.
-- Validate the direct-feed profile and its physical feeder-state guard without
-  weakening `REQUIRE_TRADRACK` in the TradRack profile.
-- Revisit top-surface, overhang, travel, or historical Z-banding investigations
-  only if the problem is reproducible with the current hardware/profile.
-- Optional projects: G-code upload sanity checker and automated extrusion
-  calibration research.
+- Physically confirm the exact hotend manufacturer/model, outer toolhead
+  housing, installed extruder motor, and final PTFE/connector path.
+- Export and audit the direct-feed Orca profile, then perform its eventual
+  physical feeder-state test. `REQUIRE_TRADRACK` behavior itself was already
+  tested and must not be weakened in the TradRack profile.
 
 ## Recently completed
 
@@ -92,3 +171,9 @@ Action:
   successful push, no-change, database-preservation, and remote-ahead cases.
 - Reviewed the generated `mmu/mmu_vars.cfg` changes against the MMU log and
   included the completed-print state with the first knowledge backup.
+- Established and documented the manual Happy Hare-to-Orca lane mapping and
+  preset handoff workflow; Spoolman remains a possible later inventory layer,
+  not an assumed live Orca synchronizer.
+- Established the reusable-project method and a safe candidate position for
+  the current prime tower. Selected Orca's first-layer adaptive bounds instead
+  of an unnecessarily slow unconditional full mesh.

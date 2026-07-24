@@ -1,6 +1,6 @@
 # Printer knowledge index
 
-Last reconciled: 2026-07-23
+Last reconciled: 2026-07-24
 
 This is the authoritative, compact knowledge set for the printer. It was
 distilled from the ChatGPT handoff candidates, this Codex session, active
@@ -13,9 +13,14 @@ configuration, generated G-code, and current logs.
 - [DECISIONS.md](DECISIONS.md) — durable choices and their rationale
 - [RUNBOOKS.md](RUNBOOKS.md) — approved safe procedures
 - [HISTORY.md](HISTORY.md) — condensed milestones and superseded facts
+- [HOST_INVENTORY.md](HOST_INVENTORY.md) — audited Raspberry Pi software,
+  services, external dependencies, and backup boundaries
+- [RPI_REBUILD.md](RPI_REBUILD.md) — fresh-image recovery order and
+  non-moving validation
 
-For ordinary work, `CURRENT.md` and `WORKLOG.md` are enough. Read the other
-files only when relevant.
+For ordinary printer work, `CURRENT.md` and `WORKLOG.md` are enough. Read the
+host documents before operating-system recovery, software reconstruction, or
+private-backup planning.
 
 ## Evidence labels
 

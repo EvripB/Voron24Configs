@@ -1,6 +1,6 @@
 # Durable decisions
 
-Last reconciled: 2026-07-23
+Last reconciled: 2026-07-24
 
 These are current choices, not a list of every experiment.
 
@@ -61,3 +61,27 @@ These are current choices, not a list of every experiment.
     secrets, and other sensitive data out of tracked files and command output.
 19. During an active print, default to read-only observation. Runtime changes
     require explicit authorization for that specific action.
+20. Until a deliberately validated integration replaces it, synchronize
+    TradRack lanes to Orca manually. Happy Hare is authoritative for gate
+    identity, material, and color; validated Orca presets are authoritative for
+    print temperatures, cooling, flow, and volumetric limits. Orca slot 1 maps
+    to T0/G0 through slot 12 mapping to T11/G11. Preserve the project-level
+    arrangement in a reusable 12-slot 3MF and archive native preset exports.
+21. For the TradRack Orca profile, use Orca's explicit adaptive-bed-mesh bounds
+    so the first-layer hull includes the prime tower as well as the model.
+    Preserve Klipper native adaptive meshing as the default for calls that do
+    not request Orca bounds. This avoids both the uncovered-tower fault and the
+    405 probe samples of an unconditional full 9x9 mesh.
+22. Rebuild the host from the latest supported 64-bit MainsailOS rather than
+    copying an old SD-card software image indefinitely. When the physical MCUs
+    have not been reflashed, first pin the recovered Klipper host to the
+    recorded compatible commit; do not turn an OS recovery into an
+    unplanned Spider/MMU firmware update.
+23. Keep reproducible, credential-free custom host source in the public
+    configuration repository, but keep Moonraker databases, network profiles,
+    SSH/Git credentials, Codex state, and large operational data in a separate
+    encrypted private backup.
+24. Treat `BACKUP_CFG` as a configuration Git operation only. It is not a
+    complete Raspberry Pi backup. Local authentication stored in untracked Git
+    metadata is not a public-repository leak and does not by itself block the
+    backup; credentials must simply remain out of tracked content.

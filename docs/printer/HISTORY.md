@@ -74,6 +74,15 @@ identities remain approximate.
 - Validated the workflow against a disposable local remote.
 - Reviewed the generated `mmu_vars.cfg` changes against the completed-print log
   and backed up the authoritative knowledge set with that current MMU state.
+- Audited the complete Raspberry Pi host stack and recorded the OS, software
+  revisions, services, Linux host MCU, Happy Hare dependencies, Talking Voron,
+  Wi-Fi watchdog, camera, data roots, and private-backup boundary.
+- Preserved credential-free custom host source snapshots and wrote a
+  fresh-MainsailOS recovery guide ending in non-moving validation.
+- Confirmed that GitHub authentication exists only in local untracked Git
+  metadata and a private rollback copy, not in tracked files or audited Git
+  history. With owner-only Raspberry Pi access, this was classified as local
+  authentication state rather than a public token leak.
 
 ## Superseded statements
 
