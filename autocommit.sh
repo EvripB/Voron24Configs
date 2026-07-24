@@ -1,101 +1,139 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#######################################################################
-## NOTE: This script originates from here but I tweaked the pull     ##
-## command, changed default location for backup, and added a comment ##
-## for reference later.                                              ##
-#######################################################################
+set -Eeuo pipefail
 
-#####################################################################
-### Please set the paths accordingly. In case you don't have all  ###
-### the listed folders, just keep that line commented out.        ###
-#####################################################################
-### Path to your config folder you want to backup
-config_folder=~/printer_data/config
+readonly config_folder="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+readonly klipper_folder="${HOME}/klipper"
+readonly moonraker_folder="${HOME}/moonraker"
+readonly mainsail_folder="${HOME}/mainsail"
+readonly fluidd_folder=""
+readonly branch="main"
 
-# NOTE: The above should work for just about everyone, but a somewhat
-# recent update to moonraker changed paths, etc. You can run the 
-# provided moonraker script 'data-path-fix.sh' to fix/update
-# older installs
+m1=""
+m2=""
+m3=""
+m4=""
 
-### Path to your Klipper folder, by default that is '~/klipper'
-klipper_folder=~/klipper
-
-### Path to your Moonraker folder, by default that is '~/moonraker'
-moonraker_folder=~/moonraker
-
-### Path to your Mainsail folder, by default that is '~/mainsail'
-mainsail_folder=~/mainsail
-
-### Path to your Fluidd folder, by default that is '~/fluidd'
-#fluidd_folder=~/fluidd
-
-### The branch of the repository that you want to save your config
-### By default that is 'main'
-branch=main
-
-#db_file=~/printer_data/database/moonraker-sql.db
-
-#####################################################################
-#####################################################################
-
-
-
-#####################################################################
-################ !!! DO NOT EDIT BELOW THIS LINE !!! ################
-#####################################################################
-grab_version(){
-  if [ ! -z "$klipper_folder" ]; then
-    klipper_commit=$(git -C $klipper_folder describe --always --tags --long | awk '{gsub(/^ +| +$/,"")} {print $0}')
-    m1="Klipper version: $klipper_commit"
-  fi
-  if [ ! -z "$moonraker_folder" ]; then
-    moonraker_commit=$(git -C $moonraker_folder describe --always --tags --long | awk '{gsub(/^ +| +$/,"")} {print $0}')
-    m2="Moonraker version: $moonraker_commit"
-  fi
-  if [ ! -z "$mainsail_folder" ]; then
-    mainsail_ver=$(head -n 1 $mainsail_folder/.version)
-    m3="Mainsail version: $mainsail_ver"
-  fi
-  if [ ! -z "$fluidd_folder" ]; then
-    fluidd_ver=$(head -n 1 $fluidd_folder/.version)
-    m4="Fluidd version: $fluidd_ver"
-  fi
+die() {
+    printf 'Configuration backup failed: %s\n' "$*" >&2
+    exit 1
 }
 
-# Here we copy the sqlite database for backup
-# To RESTORE the database, stop moonraker, then use the following command:
-# cp ~/printer_data/config/moonraker-sql.db ~/printer_data/database/
-# Finally, restart moonraker
+record_git_version() {
+    local repository="$1"
+    local label="$2"
+    local output_variable="$3"
+    local version=""
 
-if [ -f $db_file ]; then
-   echo "sqlite based history database found! Copying..."
-   cp ~/printer_data/database/moonraker-sql.db ~/printer_data/config/
-else
-   echo "sqlite based history database not found"
-fi
-
-# To fully automate this and not have to deal with auth issues, generate a legacy token on Github
-# then update the command below to use the token. Run the command in your base directory and it will
-# handle auth. This should just be executed in your shell and not committed to any files or
-# Github will revoke the token. =)
-# git remote set-url origin https://XXXXXXXXXXX@github.com/EricZimmerman/Voron24Configs.git/
-# Note that that format is for changing things after the repository is in use, vs initially
-
-push_config(){
-  cd $config_folder
-  git pull origin $branch --no-rebase
-  git add .
-  current_date=$(date +"%Y-%m-%d %T")
-  git commit -m "Autocommit from $current_date" -m "$m1" -m "$m2" -m "$m3" -m "$m4"
-  git push origin $branch
+    if [[ -d "${repository}/.git" ]] &&
+       version="$(git -C "$repository" describe --always --tags --long 2>/dev/null)"; then
+        printf -v "$output_variable" '%s version: %s' "$label" "$version"
+    fi
 }
 
-cleanup_database(){
-  cd $config_folder
-  rm moonraker-sql.db
+grab_versions() {
+    local mainsail_version=""
+    local fluidd_version=""
+
+    record_git_version "$klipper_folder" "Klipper" m1
+    record_git_version "$moonraker_folder" "Moonraker" m2
+
+    if [[ -r "${mainsail_folder}/.version" ]]; then
+        mainsail_version="$(head -n 1 "${mainsail_folder}/.version" 2>/dev/null || true)"
+        if [[ -n "$mainsail_version" ]]; then
+            m3="Mainsail version: ${mainsail_version}"
+        fi
+    fi
+
+    if [[ -n "$fluidd_folder" && -r "${fluidd_folder}/.version" ]]; then
+        fluidd_version="$(head -n 1 "${fluidd_folder}/.version" 2>/dev/null || true)"
+        if [[ -n "$fluidd_version" ]]; then
+            m4="Fluidd version: ${fluidd_version}"
+        fi
+    fi
 }
 
-grab_version
-push_config
-cleanup_database
+validate_repository() {
+    local current_branch=""
+
+    [[ -d "${config_folder}/.git" ]] ||
+        die "config folder is not a Git repository"
+
+    current_branch="$(git -C "$config_folder" branch --show-current)"
+    [[ "$current_branch" == "$branch" ]] ||
+        die "expected branch '${branch}', found '${current_branch:-detached HEAD}'"
+
+    [[ ! -e "${config_folder}/.git/MERGE_HEAD" ]] ||
+        die "a merge is already in progress"
+    [[ ! -d "${config_folder}/.git/rebase-merge" &&
+       ! -d "${config_folder}/.git/rebase-apply" ]] ||
+        die "a rebase is already in progress"
+
+    if ! git -C "$config_folder" fsck --full --no-dangling >/dev/null; then
+        die "Git integrity check failed; no files were staged"
+    fi
+}
+
+acquire_lock() {
+    exec 9>"${config_folder}/.git/autocommit.lock"
+    flock -n 9 || die "another configuration backup is already running"
+}
+
+fetch_and_verify_remote() {
+    local remote_commit=""
+
+    # Authentication is provided by the configured origin. Never print or
+    # rewrite the remote URL from this script.
+    if ! git -C "$config_folder" fetch --quiet origin "$branch" >/dev/null 2>&1; then
+        die "unable to fetch origin/${branch}; no files were staged"
+    fi
+
+    remote_commit="$(
+        git -C "$config_folder" rev-parse --verify "FETCH_HEAD^{commit}"
+    )"
+
+    if ! git -C "$config_folder" merge-base --is-ancestor "$remote_commit" HEAD; then
+        die "origin/${branch} is ahead or diverged; reconcile it manually before backup"
+    fi
+}
+
+commit_changes() {
+    local current_date=""
+    local -a commit_arguments=()
+
+    git -C "$config_folder" add --all
+
+    if git -C "$config_folder" diff --cached --quiet; then
+        printf 'No new configuration changes to commit.\n'
+        return
+    fi
+
+    current_date="$(date '+%Y-%m-%d %T')"
+    commit_arguments=(-m "Autocommit from ${current_date}")
+
+    [[ -n "$m1" ]] && commit_arguments+=(-m "$m1")
+    [[ -n "$m2" ]] && commit_arguments+=(-m "$m2")
+    [[ -n "$m3" ]] && commit_arguments+=(-m "$m3")
+    [[ -n "$m4" ]] && commit_arguments+=(-m "$m4")
+
+    git -C "$config_folder" commit "${commit_arguments[@]}"
+}
+
+push_config() {
+    if ! git -C "$config_folder" push --quiet origin "$branch" >/dev/null 2>&1; then
+        die "push failed; any new commit remains safe in the local repository"
+    fi
+
+    printf 'Configuration backup completed successfully.\n'
+}
+
+main() {
+    acquire_lock
+    validate_repository
+    grab_versions
+    fetch_and_verify_remote
+    commit_changes
+    push_config
+}
+
+main "$@"
