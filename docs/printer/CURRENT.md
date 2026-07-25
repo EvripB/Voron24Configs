@@ -27,6 +27,9 @@ Implementation: [printer.cfg](../../printer.cfg).
 ## Homing, mesh, and macros
 
 - **Config-verified:** safe Z homing is X206 Y297.
+- **User-confirmed, config-verified:** QGL and bed meshing use an Omron PL-08N
+  inductive probe mounted at X0 Y+20 relative to the nozzle. It is not the
+  printer's Z reference; Z homes against the mechanical endstop.
 - **Runtime-validated, user-confirmed (2026-07-25):** after centering the
   nozzle over the mechanical Z-endstop pin, a cold paper
   `Z_ENDSTOP_CALIBRATE` saved `stepper_z.position_endstop` as 1.200 mm,
