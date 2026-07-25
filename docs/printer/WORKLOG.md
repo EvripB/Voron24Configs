@@ -132,17 +132,21 @@ Pending while the printer is idle:
   MGN9H 350 mm rails in the earlier dual-X-rail arrangement.
 - **User-confirmed complete for the third batch:** Mean Well LRS-200-24
   remains the installed 24 V supply; no standalone 5 V supply is installed;
-  and the Spider v1.1 carries an STM32F446 MCU. The bed relay is confirmed
-  only to the `SSR-500` family, with `SSR-500-1DA48-10` and 230 V AC / 10 A
-  coming from the purchase record rather than a complete physical-label
-  inspection. The mains-inlet purchase record says 10 A.
-- Still unresolved for the power system: Raspberry Pi 5 V source, exact SSR
-  manufacturer/full label, physical mains-fuse rating, and the Keenovo
-  heater assembly's thermal-protection type and rating.
+  and the Spider v1.1 carries an STM32F446 MCU. The bed relay is an A-Senco
+  `SSR-500`-series unit, with `SSR-500-1DA48-10` and 230 V AC / 10 A coming
+  from the purchase record rather than a complete physical-label inspection.
+  The mains-inlet purchase record says 10 A.
+- **User-confirmed complete for the fourth batch:** Hall-effect X/Y-endstop
+  board; A4T toolhead with two 4010 part-cooling blowers and one 2510 axial
+  hotend fan; and two Gdstime GDA6020 dual-ball-bearing 24 V / 0.1 A
+  electronics-bay fans, one on each side.
+- Still unresolved for the power system: Raspberry Pi 5 V source, complete SSR
+  model/rating label, physical mains-fuse rating, and the Keenovo heater
+  assembly's thermal-protection type and rating.
 - The active Energetic smooth/textured PEI plate is damaged but serviceable;
   replacement is future maintenance. The Fermiolab single-sided plate remains
   an unused spare.
-- Continue the owner-confirmation batches for endstops, fans, frame, cable
+- Continue the owner-confirmation batches for motion belts, frame, cable
   chains, and enclosure panels. Resolve the remaining power details during a
   future safe physical inspection rather than from assumptions.
 - Detailed status and original-BOM conflicts are tracked in
@@ -220,8 +224,7 @@ Pending action, while the printer is idle:
 - Evaluate a purge bucket/Blobifier workflow to purge most transition material
   off-print and retain only the minimum priming structure. Blobifier is
   currently disabled.
-- Physically confirm the exact hotend manufacturer/model, outer toolhead
-  housing, installed extruder motor, and final PTFE/connector path.
+- Physically document the final PTFE/connector path near the extruder.
 - Export and audit the direct-feed Orca profile, then perform its eventual
   physical feeder-state test. `REQUIRE_TRADRACK` behavior itself was already
   tested and must not be weakened in the TradRack profile.

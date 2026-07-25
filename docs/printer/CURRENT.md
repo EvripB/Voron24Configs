@@ -23,9 +23,12 @@ implementation source of truth.
 - **User-confirmed, config-verified:** A/B use two
   LDO-42STH40-2004MAC(VRN) motors in the configured 0.9-degree setup; Z uses
   four LDO-42STH48-2004AC(VRN) motors.
+- **User-confirmed:** X and Y home against a Hall-effect XY-endstop board.
 - **User-confirmed:** all eight original RobotDigg MGN9H 350 mm rails remain
   installed. The X axis retains the earlier dual-MGN9 arrangement and has not
   been converted to a single MGN12 rail.
+- **User-confirmed, config-corroborated:** the toolhead housing is an A4T with
+  two 4010 part-cooling blowers and one 2510 axial hotend fan.
 - **User-confirmed:** current hotend is a Trianglelab Dragon Hotend V2.0 High
   Flow with a Trianglelab Melt Zone Extender (MZE). The configured and
   user-confirmed thermistor is an ATC Semitec 104GT-2.
@@ -37,11 +40,12 @@ implementation source of truth.
   290 x 290 mm 230 V AC heater, Graviflex magnet, and removable spring steel.
   The active Energetic plate has smooth and textured PEI sides; it is damaged
   but serviceable. An unused Fermiolab single-sided plate is the spare.
-- **Partially user-confirmed:** the bed relay carries an `SSR-500` family
-  marking; the purchase record identifies `SSR-500-1DA48-10`, 230 V AC /
-  10 A. Its exact manufacturer and the heater assembly's thermal-protection
-  details have not been physically verified.
-- **Unresolved:** exact installed outer toolhead housing.
+- **User-confirmed:** the bed relay is an A-Senco `SSR-500`-series unit. The
+  purchase record identifies `SSR-500-1DA48-10`, 230 V AC / 10 A; the full
+  installed label and the heater assembly's thermal-protection details have
+  not been physically verified.
+- **User-confirmed, config-corroborated:** the electronics bay is cooled by
+  two Gdstime GDA6020 dual-ball-bearing 24 V / 0.1 A fans, one on each side.
 
 Implementation: [printer.cfg](../../printer.cfg). Detailed physical inventory:
 [HARDWARE_INVENTORY.md](HARDWARE_INVENTORY.md).
@@ -230,10 +234,10 @@ remain snapshots rather than configuration truth.
 
 ## Physical facts still needing confirmation
 
-- Exact outer toolhead housing
 - Final PTFE segment and connector dimensions near the extruder
 - Raspberry Pi 5 V power route
-- Exact bed-SSR manufacturer and full installed label
+- Bed SSR full installed model suffix and rating; manufacturer A-Senco and
+  `SSR-500` family are confirmed
 - Bed thermal-protection type, trip rating, location, and wiring
 - Physical confirmation of the mains inlet fuse rating; its purchase record
   says 10 A
