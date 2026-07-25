@@ -64,8 +64,15 @@ Implementation: [printer.cfg](../../printer.cfg). Detailed physical inventory:
   replacing 1.160 mm. The unchanged 200x80 mm ABS test then produced a
   top-notch first layer across the bed, confirming that the prior uniform
   gaps came from the 0.040 mm Z-reference error.
-- **Config-verified:** bed mesh spans X/Y 40-260, uses a 9x9 probe grid, and
-  has a 5 mm adaptive margin.
+- **Runtime-validated, pending restart (2026-07-25):** the configured bed-mesh
+  envelope now spans X15-285 and Y40-260 with an 11x9 grid and 5 mm adaptive
+  margin. The Y40 boundary keeps the Crossbow depressor outside the probing
+  path. A hot 105 C full-width test completed safely with this geometry.
+- **Runtime-validated, user-confirmed (2026-07-25):** the first full-width
+  mesh exposed a +0.327 mm front-right spike caused by raised peeled-coating
+  edges on the underside of the Energetic sheet. After trimming those edges,
+  cleaning the sheet, and reseating it in the same orientation, the repeated
+  full mesh measured only 0.1025 mm peak-to-valley and the spike disappeared.
 - **Runtime-loaded, pending print validation (2026-07-24):** `PRINT_START`
   supports two mesh paths. Calls that omit `MESH_MODE` retain Klipper native
   adaptive meshing; the TradRack Orca profile supplies Orca's complete

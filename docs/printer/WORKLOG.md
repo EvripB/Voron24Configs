@@ -41,12 +41,14 @@ toolchange baseline.
 - The prior X188 Y52 candidate refers to Orca's exported internal tower
   anchor, not necessarily the visual center shown by the plate-move UI.
   Position and verify the actual Preview footprint plus its margin inside
-  X/Y40-260; recheck after changing tower or purge geometry.
+  X15-285 and Y40-260; recheck after changing tower or purge geometry.
 - The backward-compatible `MESH_MODE=ORCA` implementation is loaded in
-  `PRINT_START`, and the TradRack printer has mesh limits 40,40 to 260,260,
-  probe distance 27.5,27.5, margin 5, and a start line that passes Orca's
-  calculated bounds/count/algorithm. Direct-feed starts remain on Klipper
-  native adaptive meshing.
+  `PRINT_START`. Klipper's runtime-validated mesh envelope is now X15-285 and
+  Y40-260 with an 11x9 full grid; the TradRack Orca profile must be changed to
+  matching limits `15,40` and `285,260`, while retaining probe distance
+  27.5,27.5, margin 5, and the start line that passes Orca's calculated
+  bounds/count/algorithm. Direct-feed starts remain on Klipper native adaptive
+  meshing.
 - The configuration restarted cleanly on July 24. Slice a small two-tool job
   and verify its generated `PRINT_START` parameters and runtime mesh bounds
   before considering the Orca path print-validated.
@@ -65,6 +67,12 @@ toolchange baseline.
   run before calling the new path runtime-validated.
 - The measured positions and limitation are documented in
   [`slicer/orca/README.md`](../../slicer/orca/README.md).
+- **Runtime-validated, user-confirmed (2026-07-25):** an 11x9 hot-bed mesh
+  safely probed X15-285 and Y40-260. Its first run exposed a +0.327 mm
+  front-right spike. Raised peeled-coating edges on the underside of the
+  Energetic sheet were trimmed, the sheet was washed and reseated, and the
+  repeated full mesh dropped from 0.3775 mm to 0.1025 mm peak-to-valley with
+  no remaining corner spike.
 
 ### 3. Review the completed crab print
 

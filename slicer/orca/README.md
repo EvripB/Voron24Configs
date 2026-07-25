@@ -140,7 +140,8 @@ successful crab tower's extrusion around X183.0-253.0 and Y46.3-99.2, but it
 is not a universal UI position.
 
 Position the actual tower footprint shown in Preview so that it plus the
-configured 5 mm mesh margin stays inside X/Y40-260. Recheck after changing
+configured 5 mm mesh margin stays inside X15-285 and Y40-260. The Y40 minimum
+retains clearance from the fixed Crossbow depressor. Recheck after changing
 tower width, brim, type, rotation, or purge geometry, because those can change
 the footprint around Orca's anchor. The generated `MESH_MIN` or `MESH_MAX`
 landing exactly on a configured limit is a reason to inspect for clipping.
@@ -159,8 +160,8 @@ the model, supports, skirt, brim, and prime tower:
 
 | Orca printer setting | Value |
 | --- | --- |
-| Bed mesh minimum | `40,40` |
-| Bed mesh maximum | `260,260` |
+| Bed mesh minimum | `15,40` |
+| Bed mesh maximum | `285,260` |
 | Probe point distance | `27.5,27.5` |
 | Mesh margin | `5` |
 
