@@ -51,6 +51,9 @@ procedure, or superseded work. The files in
 - Change one independent variable at a time when diagnosing behavior.
 - Review the diff and define validation and rollback before applying a runtime
   restart.
+- Commit and push each logically independent, validated change before starting
+  another configuration change. Do not bundle unrelated work merely to obtain
+  a clean tree; keep generated runtime-state snapshots separate when practical.
 - After an accepted change, update the appropriate knowledge file:
   stable state in `CURRENT.md`, rationale in `DECISIONS.md`, task status in
   `WORKLOG.md`, and dated milestones in `HISTORY.md`.
