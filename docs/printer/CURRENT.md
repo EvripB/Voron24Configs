@@ -64,10 +64,11 @@ Implementation: [printer.cfg](../../printer.cfg). Detailed physical inventory:
   replacing 1.160 mm. The unchanged 200x80 mm ABS test then produced a
   top-notch first layer across the bed, confirming that the prior uniform
   gaps came from the 0.040 mm Z-reference error.
-- **Runtime-validated, pending restart (2026-07-25):** the configured bed-mesh
-  envelope now spans X15-285 and Y40-260 with an 11x9 grid and 5 mm adaptive
-  margin. The Y40 boundary keeps the Crossbow depressor outside the probing
-  path. A hot 105 C full-width test completed safely with this geometry.
+- **Runtime-loaded, runtime-validated (2026-07-25):** the bed-mesh envelope
+  spans X15-285 and Y40-260 with an 11x9 grid and 5 mm adaptive margin. The
+  Y40 boundary keeps the Crossbow depressor outside the probing path. A hot
+  105 C full-width test completed safely with this geometry, and the
+  subsequent firmware restart loaded the new limits cleanly.
 - **Runtime-validated, user-confirmed (2026-07-25):** the first full-width
   mesh exposed a +0.327 mm front-right spike caused by raised peeled-coating
   edges on the underside of the Energetic sheet. After trimming those edges,
@@ -78,6 +79,9 @@ Implementation: [printer.cfg](../../printer.cfg). Detailed physical inventory:
   adaptive meshing; the TradRack Orca profile supplies Orca's complete
   first-layer bounds with `MESH_MODE=ORCA` and names the resulting runtime
   profile `adaptive_orca`.
+- **User-confirmed (2026-07-25):** the TradRack Orca profile now matches
+  Klipper's X15-285/Y40-260 mesh limits while retaining 27.5 mm probe-point
+  distance and a 5 mm margin.
 - **Config-verified:** custom `PRIME_LINE`, `REQUIRE_TRADRACK`, and Talking
   Voron speech/temperature-warning functionality are active.
 - **Runtime-validated, user-confirmed:** `MMU_HOME_SAFE` provides an update-safe

@@ -44,14 +44,15 @@ toolchange baseline.
   X15-285 and Y40-260; recheck after changing tower or purge geometry.
 - The backward-compatible `MESH_MODE=ORCA` implementation is loaded in
   `PRINT_START`. Klipper's runtime-validated mesh envelope is now X15-285 and
-  Y40-260 with an 11x9 full grid; the TradRack Orca profile must be changed to
-  matching limits `15,40` and `285,260`, while retaining probe distance
+  Y40-260 with an 11x9 full grid. The owner updated the TradRack Orca profile
+  to matching limits `15,40` and `285,260`, while retaining probe distance
   27.5,27.5, margin 5, and the start line that passes Orca's calculated
   bounds/count/algorithm. Direct-feed starts remain on Klipper native adaptive
   meshing.
-- The configuration restarted cleanly on July 24. Slice a small two-tool job
-  and verify its generated `PRINT_START` parameters and runtime mesh bounds
-  before considering the Orca path print-validated.
+- The July 25 firmware restart loaded the wider Klipper limits cleanly. Slice
+  a small two-tool job and verify its generated `PRINT_START` parameters and
+  runtime mesh bounds before considering the widened Orca path
+  print-validated.
 - The first exported two-tool test correctly resolved `MESH_MIN`,
   `MESH_MAX`, `PROBE_COUNT=7,7`, and `MESH_ALGORITHM=bicubic`, but it also
   demonstrated the physical probe-limit constraint. With the tower at about
