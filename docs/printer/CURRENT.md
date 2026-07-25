@@ -105,12 +105,18 @@ Implementation: [printer.cfg](../../printer.cfg) and
 - **User-confirmed, config-verified:** Trianglelab shipped the TradRack 1.0e
   kit with a Binky encoder and FYSETC ERB v2 controller. The ERB uses its
   RP2040 MCU and is connected over USB.
-- **User-confirmed, config-verified:** Filamentalist v3 spool handling with no
-  separate filament-storage buffer (`has_filament_buffer: 0`).
-- **Config-verified:** sensing includes the gate sensor, Binky encoder, a
-  tension input, a sensor immediately before the extruder gears, and a sensor
-  after the extruder gears. The Belay identity of the tension mechanism is
-  **user-confirmed**.
+- **User-confirmed, config-verified:** twelve Filamentalist FV3 passive
+  rewinders provide spool handling, one for each commissioned gate, inside the
+  actively heated filament enclosure. Happy Hare is correctly configured with
+  no separate filament-storage buffer (`has_filament_buffer: 0`).
+- **User-confirmed, config-verified:** the Annex Belay mechanism supplies the
+  one-sided tension input on ERB `gpio12`. Happy Hare—not Annex's standalone
+  Belay Klipper module—owns synchronization and FlowGuard. The active
+  configuration has no `[belay]` section or Belay update manager.
+- **Config-verified:** the remaining sensing includes the Binky encoder, a
+  sensor immediately before the extruder gears, and a sensor after the
+  extruder gears. No shared gate switch or twelve per-gate switches are
+  assigned in the active ERB aliases.
 - **Config-verified:** sync feedback and FlowGuard are enabled. Blobifier and
   standalone purging are disabled; the slicer purge tower currently owns
   in-print flushing.

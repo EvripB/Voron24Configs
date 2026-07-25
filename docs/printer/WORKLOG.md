@@ -123,8 +123,8 @@ Pending while the printer is idle:
   database, UUID/service state, network recovery data, Git authentication,
   and any desired G-code/uploads. Include
   `codex_uploads/tradrack/` because its original PDFs, images, extracted text,
-  and offline ERB source snapshots are intentionally outside the public
-  configuration Git repository.
+  and offline ERB, Belay, and Filamentalist FV3 source snapshots are
+  intentionally outside the public configuration Git repository.
 - Perform a separate Talking Voron hardening review. Its current service
   listens on all interfaces and accepts an audio filename.
 - Treat the rebuild guide as audit-backed but not end-to-end tested until a

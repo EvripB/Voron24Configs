@@ -3,9 +3,10 @@
 Last reconciled: 2026-07-26
 
 This is the durable, searchable reference for the uploaded TradRack build
-documents, Trianglelab kit lists, Happy Hare ERB v2 MCU page, and FYSETC ERB
-v2 repository. It records facts useful for this printer without treating every
-vendor example as installed truth.
+documents, Trianglelab kit lists, Happy Hare ERB v2 MCU page, FYSETC ERB v2
+repository, Annex Belay project, and Filamentalist FV3 project. It records
+facts useful for this printer without treating every vendor example as
+installed truth.
 
 The unchanged source PDFs, images, extracted text, and offline repository
 snapshots are under:
@@ -45,8 +46,8 @@ facts even without that private archive.
 | MMU controller | Trianglelab-supplied FYSETC ERB v2, RP2040 | Owner-confirmed, active pin aliases, and USB serial identity |
 | Controller link | USB serial | `/dev/serial/by-id/usb-Klipper_rp2040_E663B034CB66C42F-if00` |
 | Filament encoder | Binky | Config-verified and owner-confirmed |
-| Spool handling | Filamentalist v3, no separate storage buffer | Owner-confirmed and `has_filament_buffer: 0` |
-| Sync feedback | One-sided Belay tension switch | Owner-confirmed; active on ERB `gpio12` |
+| Spool handling | Twelve Filamentalist FV3 passive rewinders in the actively heated filament enclosure | Owner-confirmed; one per commissioned gate and `has_filament_buffer: 0` |
+| Sync feedback | One-sided Annex Belay tension switch controlled by Happy Hare | Owner-confirmed; active on ERB `gpio12`; standalone Belay module absent |
 | Toolhead sensors | Pre-extruder on Spider `PB13`; post-extruder on Spider `PB14` | Active configuration |
 | Gate switches | ERB 12-input bank is not used as twelve pre-gate switches | All `MMU_PRE_GATE_*` aliases are commented out |
 | Shared gate sensor | Not assigned | `MMU_GATE_SENSOR` alias is empty |
@@ -59,6 +60,147 @@ Implementation:
 The original 14-channel hardware does not change the operating boundary:
 never load, check, or calibrate gates 12 or 13 unless the owner explicitly
 commissions them and the active configuration is updated.
+
+## Annex Belay hardware and software boundary
+
+### Current implementation
+
+The owner confirmed that the moving tension mechanism is an Annex Belay.
+Current configuration establishes the following software boundary:
+
+- `sync_feedback_tension_pin: ^mmu:gpio12`
+- `sync_feedback_compression_pin:` is unassigned.
+- `sync_feedback_enabled: 1`
+- FlowGuard is enabled and consumes Happy Hare's modeled feedback state.
+- The active printer configuration has no `[belay ...]` section.
+- The active Moonraker configuration has no `[update_manager belay]`.
+- No Belay module is installed in the active Klipper extras directory, and no
+  `~/belay_klippy_module` source tree is present.
+
+Old Moonraker backup files contain a historical Belay update-manager stanza.
+They are not active includes and do not establish current use. Happy Hare is
+the sole owner of secondary-extruder synchronization and FlowGuard on this
+printer. Do not install the standalone Annex module or use its
+`QUERY_BELAY`/`ENABLE_BELAY`/`DISABLE_BELAY` commands unless this architecture
+is deliberately changed and the duplicate-control risk is reviewed.
+
+### Upstream operating principle
+
+Belay sits between two sections of 4 mm Bowden tube. One tube terminates in a
+moving slider, and an Omron lever microswitch reports the slider state. Long
+filament paths, spool resistance, or a small mismatch between the primary and
+secondary extruders can otherwise accumulate slack or tension. The upstream
+standalone module responds by changing the secondary extruder's movement
+multiplier according to slider state and extrusion direction.
+
+The upstream standalone defaults are 1.05 and 0.95. Those values explain the
+project's reference behavior but are not Happy Hare configuration values and
+must not be copied into this printer without a separate tuning decision.
+Upstream describes the project as open alpha at the archived commit.
+
+### Upstream BOM, assembly, and service facts
+
+The upstream Belay hardware requires:
+
+| Item | Quantity | Notes |
+| --- | ---: | --- |
+| Omron D2F-L lever microswitch | 1 | Other compatible TradRack variants may work |
+| Bowden collets | 2 | Printed parts support ECAS04, 5 mm, or 6 mm collets |
+| Collet clips | 2 | Required for 5/6 mm collets; unnecessary for ECAS04 |
+| M2 x 12 pan-head self-tapping screws | 2 | Longer screws protrude |
+
+Important assembly and inspection points from the upstream quick-start guide:
+
+- Install the slider with its arrow visible in the documented orientation.
+- Insert the entry tube while the slider is at the end of its travel. The tube
+  must extend past the slider and into the sensor housing; a visible gap in
+  the filament path means the tube is not fully seated.
+- Secure the microswitch wires to the housing with a zip tie so cable strain
+  cannot act on the solder joints.
+- The switch uses only signal and ground. A three-pin 3.3 V endstop header is
+  convenient, but the supply pin is not connected.
+- During printing, the slider should remain near the middle of its travel and
+  should not repeatedly hit an end stop. On this printer, observe Happy Hare's
+  sync-feedback and FlowGuard state rather than the upstream Belay commands.
+
+The complete upstream CAD, STLs, assembly images, software, configuration
+reference, and license are retained in the local offline source snapshot.
+
+## Filamentalist FV3 passive rewinders
+
+### Current implementation
+
+The owner has twelve Filamentalist FV3 rewinders, one for each commissioned
+gate 0-11, inside the actively heated filament enclosure. They are passive,
+filament-driven spool rewinders. Happy Hare therefore uses
+`has_filament_buffer: 0`: the FV3 units manage spool take-up but are not a
+separate filament-storage buffer in Happy Hare's model.
+
+The upstream repository also contains an optional passive Filamentalist
+enclosure. It is not the owner's actively heated enclosure and must not be
+used as evidence for the installed enclosure construction, heater, controls,
+or temperature limits.
+
+FV3 has optional tensioner-mounted pre-gate sensor parts. Those options are not
+installed truth for this printer: the active ERB pre-gate aliases are
+commented out and no twelve-switch bank is configured.
+
+### Upstream per-rewinder BOM
+
+This table preserves the upstream v1.1.1 sourcing essentials. It is a rebuild
+reference, not a physical inventory of each installed unit.
+
+| Item | Quantity | Upstream detail |
+| --- | ---: | --- |
+| 8 mm axle rod or tube | 1 | 7.93-7.97 mm or 5/16 inch works best; 50 mm works, up to about 75 mm improves rim-roller stability |
+| 688 bearing | 1 | Tensioner arm |
+| 608 bearings | 4 | Drive/idler axles; four 688 bearings are the documented alternative |
+| HF081412 one-way bearing | 1 | 8 mm bore, 12 mm long, 14.2 mm diameter, octagonal style |
+| ECAS04 fitting | 1 | Use a locking clip; omit the fitting's rubber seal |
+| O-rings | 2 | Metric 3.5 x 20 mm ID or AS568 size 211 |
+| Compression spring | 1 | 304 stainless, 6 mm OD, 0.6 mm wire, 7.5 mm compressed, 15 mm free |
+| M3 x 4 x 5 heat-set insert | 1 | Voron-standard size |
+| M3 x 30 SHCS and M3 washer | 1 each | Spring-tension adjustment |
+| M3 x 12-16 SHCS | 6-10 | Rim-roller axle locking; enclosure mounting can require four more |
+| M3 x 12 FHCS | 4 | Idler wheels, tensioner bearing axle, and pivot |
+| M3 x 8 FHCS | 12-14 | Twelve for 2020 center mount; fourteen for enclosure mount |
+| Number 84 rubber bands | 4 | Two per standard FV3 rim roller; thin bicycle inner tube is an alternative |
+
+The source recommends inexpensive rubber-sealed 608-2RS or 688-2RS bearings.
+Their slight resistance is intentional because it helps the one-way bearing
+unlock. The shared FAQ recommends lightweight bicycle inner tube with a
+0.6-0.7 mm wall when replacing the rim-roller rubber, or number 84 bands for
+the standard FV3's 23 mm roller face.
+
+### Printing and service guidance
+
+The upstream FV3 readme recommends:
+
+| Setting | Recommendation |
+| --- | --- |
+| Material | ABS or ASA |
+| Layer height | 0.2 mm |
+| Infill | 40%, using a linear-style pattern |
+| Walls | 4 |
+| Solid top/bottom layers | 5 |
+| Approximate material | 154 g for 2020 center mount; 175 g for enclosure mount |
+| Approximate print time | 7 h 34 min for 2020 center mount; 9 h 10 min for enclosure mount |
+
+The design relies on multiple press fits for bearings and ECAS hardware.
+Upstream strongly recommends printing the supplied bearing-specific
+calibration tool first and correcting extrusion multiplier or slicer scaling
+before printing replacement parts. PETG or PLA may work, but upstream did not
+design or validate the parts for those materials.
+
+The shared FAQ reports successful use with 95A TPU. It does not recommend 85A
+soft TPU because unloading can kink or jam it, especially with a heavy spool.
+Lower unload acceleration reduces spool-inertia risk. Treat those statements
+as upstream capability guidance, not validation of all twelve installed
+lanes.
+
+The complete v1.1.1 assembly PDF, current and archived STLs, parametric Fusion
+360 file, STEP models, readme, FAQ, and repository provenance are preserved in
+the local sparse snapshot.
 
 ## FYSETC ERB v2 board
 
@@ -404,17 +546,22 @@ Filamentalist v3 implementation:
 | Uploaded Happy Hare images | Unchanged local images; hashes are in the same README |
 | FYSETC ERB repository | Commit `b878bf741eacb0285a8144d542b47f2c99d8439d`, complete `V2.0/` subtree |
 | Happy Hare wiki | Commit `82617f3794bb371491ae37bd862dfe2b6ddb074a`, compact ERB v2 MCU snapshot |
+| Annex Belay repository | Commit `0670df1c70473ea9a29cb506f468224e844887dc`, complete shallow repository |
+| Carrot Collective ERCF v2 repository | Commit `aa1e1c9cbf3d5f4104a77bf17d468486419d4613`, sparse FV3 subtree plus shared FAQ |
 
 Online origins:
 
 - [Trianglelab Google Drive](https://drive.google.com/drive/folders/15uikqsmkMnKs-W1NVWu3owomo34ZEpQp)
 - [Happy Hare MCU Reference](https://github.com/moggieuk/Happy-Hare/wiki/Mcu-Reference#fysetc-erb-v2)
 - [FYSETC ERB v2 repository](https://github.com/FYSETC/FYSETC-ERB/tree/main/V2.0)
+- [Annex Engineering Belay](https://github.com/Annex-Engineering/Belay/tree/main)
+- [Filamentalist FV3](https://github.com/Carrot-collective/ERCF_v2/tree/master/Recommended_Options/Filamentalist_Rewinder/Filamentalist_FV3_Rewinder)
 
 ## Future use
 
-- Start here for ERB connector identity, controller recovery, or TradRack
-  mechanical service.
+- Start here for ERB connector identity, controller recovery, TradRack
+  mechanical service, Belay inspection, or Filamentalist FV3 replacement
+  parts.
 - Use the original PDF page when a picture, orientation, or table allocation
   matters.
 - Before electrical work, compare this reference with the live configuration

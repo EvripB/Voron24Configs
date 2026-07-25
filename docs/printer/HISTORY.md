@@ -101,6 +101,11 @@ identities remain approximate.
   Trianglelab supplied the kit with an FYSETC ERB v2. Easy-BRD references in
   the older supplier PDF and uploaded example image are excluded from the
   printer's hardware history and rebuild path.
+- Archived the Annex Belay and Carrot Collective Filamentalist FV3 source
+  repositories at identified commits. Reconciled the physical implementation
+  as twelve FV3 passive rewinders inside the actively heated filament
+  enclosure and one-sided Belay hardware controlled natively by Happy Hare;
+  Annex's standalone Belay Klipper module is not active.
 
 ## Superseded statements
 

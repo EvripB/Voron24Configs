@@ -16,7 +16,8 @@ configuration, generated G-code, and current logs.
 - [HARDWARE_INVENTORY.md](HARDWARE_INVENTORY.md) — evidence-labeled current
   hardware, original-BOM candidates, replacements, and service notes
 - [TRADRACK_REFERENCE.md](TRADRACK_REFERENCE.md) — offline-source provenance,
-  ERB v2 pin map, TradRack mechanical guidance, and Trianglelab kit inventories
+  ERB v2 pin map, TradRack/Belay/FV3 service guidance, and Trianglelab kit
+  inventories
 - [HOST_INVENTORY.md](HOST_INVENTORY.md) — audited Raspberry Pi software,
   services, external dependencies, and backup boundaries
 - [RPI_REBUILD.md](RPI_REBUILD.md) — fresh-image recovery order and

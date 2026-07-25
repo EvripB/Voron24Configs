@@ -90,8 +90,8 @@ original-build purchases that may have been replaced.
 | MMU | TradRack 1.0e with Binky encoder | Config-verified. |
 | MMU controller | FYSETC ERB v2 with RP2040 MCU | User-confirmed as supplied by Trianglelab with this TradRack kit, and config-verified from the active ERB v2 aliases and RP2040 USB identity. The controller uses USB serial; the exact installed power/communication jumper positions still require a board photograph. Easy-BRD references in older supplier material do not apply. |
 | Physical lanes | 14 | User-confirmed; only gates 0-11 are commissioned because the enclosure stores 12 filaments. |
-| Spool handling | Filamentalist v3 | User-confirmed and config-verified; no separate filament-storage buffer. |
-| Tension feedback | Belay mechanism | User-confirmed; used by Happy Hare sync feedback and FlowGuard. |
+| Spool handling | Twelve Filamentalist FV3 passive rewinders | User-confirmed; one serves each commissioned gate inside the actively heated filament enclosure. Happy Hare is configured with `has_filament_buffer: 0`, so these are not modeled as a separate filament-storage buffer. |
+| Tension feedback | Annex Engineering Belay mechanism | User-confirmed and config-verified; the one-sided switch is wired to ERB `gpio12` and is consumed by Happy Hare sync feedback and FlowGuard. Annex's standalone Belay Klipper module is not active. |
 | Toolhead sensing | Pre-extruder and post-extruder filament sensors | User-confirmed and config-verified. |
 
 The board pinout, active ERB assignments, mechanical service notes, and
