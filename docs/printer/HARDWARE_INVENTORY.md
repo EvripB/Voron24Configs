@@ -88,7 +88,7 @@ original-build purchases that may have been replaced.
 | Component | Current identity | Evidence and notes |
 | --- | --- | --- |
 | MMU | TradRack 1.0e with Binky encoder | Config-verified. |
-| MMU controller | FYSETC ERB v2 with RP2040 MCU | Config-verified from the active ERB v2 aliases and RP2040 USB identity. The controller uses USB serial; the exact installed power/communication jumper positions still require a board photograph. |
+| MMU controller | FYSETC ERB v2 with RP2040 MCU | User-confirmed as supplied by Trianglelab with this TradRack kit, and config-verified from the active ERB v2 aliases and RP2040 USB identity. The controller uses USB serial; the exact installed power/communication jumper positions still require a board photograph. Easy-BRD references in older supplier material do not apply. |
 | Physical lanes | 14 | User-confirmed; only gates 0-11 are commissioned because the enclosure stores 12 filaments. |
 | Spool handling | Filamentalist v3 | User-confirmed and config-verified; no separate filament-storage buffer. |
 | Tension feedback | Belay mechanism | User-confirmed; used by Happy Hare sync feedback and FlowGuard. |

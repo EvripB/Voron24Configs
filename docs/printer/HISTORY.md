@@ -97,6 +97,10 @@ identities remain approximate.
   repository and Happy Hare ERB MCU reference at identified commits, and added
   a tracked printer-specific reference covering pin assignments, mechanical
   guidance, source conflicts, and supplier kit inventories.
+- Corrected the source reconciliation with the owner's physical history:
+  Trianglelab supplied the kit with an FYSETC ERB v2. Easy-BRD references in
+  the older supplier PDF and uploaded example image are excluded from the
+  printer's hardware history and rebuild path.
 
 ## Superseded statements
 

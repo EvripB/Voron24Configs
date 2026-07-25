@@ -102,8 +102,9 @@ Implementation: [printer.cfg](../../printer.cfg) and
 - **Config-verified:** exactly 12 gates are enabled: gates 0-11. Gates 12 and
   13 are outside the operating scope. Old statistics keys do not make them
   active.
-- **Config-verified:** TradRack 1.0e with a Binky encoder and USB-connected
-  FYSETC ERB v2 controller using its RP2040 MCU.
+- **User-confirmed, config-verified:** Trianglelab shipped the TradRack 1.0e
+  kit with a Binky encoder and FYSETC ERB v2 controller. The ERB uses its
+  RP2040 MCU and is connected over USB.
 - **User-confirmed, config-verified:** Filamentalist v3 spool handling with no
   separate filament-storage buffer (`has_filament_buffer: 0`).
 - **Config-verified:** sensing includes the gate sensor, Binky encoder, a

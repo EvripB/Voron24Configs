@@ -26,8 +26,9 @@ facts even without that private archive.
   2023-11-30. Its controller section is unfinished.
 - The Trianglelab package list records what the 14-channel kit was supplied
   with; it does not prove that every supplied item is still installed.
-- Trianglelab's supplement describes an Easy-BRD v1.1 package. The current
-  controller profile and USB identity are FYSETC ERB v2/RP2040.
+- **User-confirmed:** Trianglelab shipped this TradRack kit with the FYSETC
+  ERB v2. Any Easy-BRD v1.1 references in the uploaded source material are
+  stale or unrelated to this printer and must be ignored.
 - The Happy Hare connection image is an ERCF v2 example. Connector identities
   and pin functions are useful, but the illustrated physical wiring is not a
   photograph of this TradRack.
@@ -41,7 +42,7 @@ facts even without that private archive.
 | MMU | TradRack 1.0e | Active Happy Hare configuration |
 | Physical lanes | 14 | Owner-confirmed |
 | Commissioned gates | 12: gates 0-11 only | Active configuration and owner-confirmed enclosure capacity |
-| MMU controller | FYSETC ERB v2 profile, RP2040 | Active pin aliases and USB serial identity |
+| MMU controller | Trianglelab-supplied FYSETC ERB v2, RP2040 | Owner-confirmed, active pin aliases, and USB serial identity |
 | Controller link | USB serial | `/dev/serial/by-id/usb-Klipper_rp2040_E663B034CB66C42F-if00` |
 | Filament encoder | Binky | Config-verified and owner-confirmed |
 | Spool handling | Filamentalist v3, no separate storage buffer | Owner-confirmed and `has_filament_buffer: 0` |
@@ -274,28 +275,23 @@ The three-page supplement records the following kit guidance:
 - Happy Hare is the recommended controller software.
 - Trianglelab recommends the Binky/BinkyRack encoder for reliability and
   additional features.
-- The supplied Easy-BRD is supported by Happy Hare.
-- A community modification can combine a Binky encoder and gate switch.
 - The selector-home microswitch may need its lever removed.
 - The longer 40 mm motor is the filament-drive motor; the thinner motor is the
   selector motor.
 - The project and BOM were described as beta and subject to kit/order changes.
 - Carrot Patch is the referenced optional spool-holder/buffer.
-- On Easy-BRD, the combination of Binky plus gate switch consumes the pins
-  otherwise available for Belay, so Trianglelab recommends moving Belay to a
-  printer-mainboard input.
 - The package is described as sufficient for a working 14-channel Happy Hare
   MMU, including toolhead sensing, cutter hardware, and sync feedback.
 - Trianglelab recommends the Happy Hare installation guide.
-- MMB v2, Easy-BRD v2, or another Klipper-capable controller are presented as
-  modern alternatives.
-- Package variants without Easy-BRD allow following the official controller
-  plan more closely.
 - Community mods are optional; the base TradRack can function without them.
 
-For this printer, the historical Easy-BRD pin-shortage warning is superseded
-by the current ERB v2 mapping: Belay is configured on ERB `gpio12`, the Binky
-on `gpio22`, and no gate switch is assigned.
+The supplement also contains Easy-BRD-specific statements. They are
+deliberately excluded from the current hardware reference because the owner
+confirmed that Trianglelab shipped this kit with an ERB v2. The unchanged PDF
+remains in the source archive only for provenance.
+
+The applicable ERB v2 mapping has Belay on `gpio12`, Binky on `gpio22`, and no
+gate switch assigned.
 
 ## Trianglelab 14-channel kit package list
 
@@ -303,13 +299,16 @@ The supplier list records these totals and specifications:
 
 ### Electronics and drive
 
+The supplier PDF's Easy-BRD controller line and separate stepper-driver rows
+do not describe the delivered kit and are ignored. The controller entry below
+uses the owner's direct confirmation.
+
 | Component | Specification | Total |
 | --- | --- | ---: |
 | Selector motor | 1.8-degree NEMA17, 20 mm, 17.7 Ncm, 1 A | 1 |
 | Filament-drive motor | 1.8-degree NEMA17, 40 mm, 42 Ncm, 1.2 A | 1 |
 | Servo | OS-1171MG, 17 g | 1 |
-| Controller | Easy-BRD v1.1 set | 1 |
-| Stepper drivers | TMC2209 | 2 |
+| Controller | FYSETC ERB v2, RP2040, two onboard TMC2209 drivers | 1 |
 | Microswitch wire | Red/black silicone wire, 1 m | 1 |
 | Microswitches | QIAOH D2F-J01FL | 5 |
 | Extruder gear set | Pair with needle bearings | 1 |
