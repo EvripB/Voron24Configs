@@ -26,8 +26,11 @@ original-build purchases that may have been replaced.
 | Component | Current identity | Evidence and notes |
 | --- | --- | --- |
 | Printer | Voron 2.4, 300 mm class, CoreXY | User-confirmed and config-verified; configured travel is X300 Y300 Z280. |
-| Main controller | FYSETC Spider v1.1 with TMC2209 drivers | User-confirmed and config-verified. |
+| Main controller | FYSETC Spider v1.1, STM32F446 MCU, with TMC2209 drivers | User-confirmed from the board and chip markings; the active Klipper USB identity also reports `stm32f446xx`. |
 | Host | Raspberry Pi 4 | User-confirmed historically and runtime-validated on Debian 12 Bookworm. |
+| 24 V power supply | Mean Well LRS-200-24 | User-confirmed as still installed. |
+| Standalone 5 V supply | None installed | User-confirmed. The original-BOM Mean Well RS-25-5 was not installed; the Raspberry Pi's present power route remains unconfirmed. |
+| Mains inlet fuse | Probably 10 A | The owner's purchase email specifies 10 A, but the installed fuse has not been physically inspected. Treat 10 A as purchase-record evidence, not a verified fuse rating. |
 | Display | RGB Mini 12864 | Config-verified and present in the original BOM; physical revision remains unconfirmed. |
 | Toolhead connection | Conventional cable harness | User-confirmed; the printer does not currently use a CAN toolhead. |
 
@@ -60,6 +63,8 @@ original-build purchases that may have been replaced.
 | --- | --- | --- |
 | Bed plate | 300 x 300 x 8 mm MIC6 aluminum plate | User-confirmed against the original BOM. |
 | Bed heater | Keenovo 290 x 290 mm, 230 V AC silicone heater | User-confirmed against the original BOM. |
+| Bed SSR | `SSR-500`-series DC/AC solid-state relay | User-confirmed family marking. The original purchase record identifies `SSR-500-1DA48-10`, rated for a 230 V AC, 10 A load; exact manufacturer remains unconfirmed, with the owner recalling A-Senco or a similar name. |
+| Bed thermal protection | Not independently identified | Any thermal protection associated with the Keenovo mat was supplied as part of the heater assembly rather than installed separately by the owner. Its type, location, trip temperature, and wiring have not been verified. |
 | Magnetic layer | Graviflex magnetic sheet | User-confirmed against the original BOM. |
 | Removable substrate | Flexible spring-steel sheet | User-confirmed against the original BOM. |
 | Primary print surface | Energetic double-sided smooth/textured PEI plate | User-confirmed; used for all current printing. It has some damage but remains serviceable. |
@@ -88,6 +93,12 @@ original-build purchases that may have been replaced.
   information. Retained packaging identifies the installed probe as an Omron
   `TL-Q5MC2-Z`; the packaging and owner inspection supersede the purchase-row
   description.
+- The original-BOM Mean Well `RS-25-5` is not installed. Do not include it in
+  a rebuild parts list unless a future inspection shows that a separate 5 V
+  supply has since been added.
+- The bed SSR's exact brand and the bed's thermal-protection details remain
+  deliberately unresolved. Do not infer either from a remembered seller name
+  or from the generic Keenovo heater description.
 
 ## Original-BOM candidates needing confirmation
 
@@ -96,9 +107,6 @@ These are useful leads, not assertions about current installation.
 | Subsystem | Original-BOM candidate or conflict | Confirmation needed |
 | --- | --- | --- |
 | Motion belts | 9 mm and 6 mm GT2 belts, loops, pulleys, and idlers. | Confirm current belt brands only if useful for maintenance; dimensions are largely implied by the Voron design. |
-| 24 V power supply | Mean Well LRS-200-24. | Confirm it remains installed. |
-| 5 V power supply | Mean Well RS-25-5. | Confirm it remains installed. |
-| Bed SSR | BOM identity is internally inconsistent between an Omron description and another part number. | Read the installed SSR label when the printer is powered down and safe to inspect. |
 | Motion endstops | D2F-01L microswitches and a Hall-effect XY-endstop board were both purchased. | Confirm the currently installed X/Y endstop hardware. |
 | Fans | Original BOM lists 60 x 60 x 20, 40 x 40 x 20 blower, and 40 x 40 x 10 axial 24 V fans. | Confirm current fan models only if replacement planning requires it. |
 | Frame and rails | LDO/Fermiolab-era 300 mm frame and IGUS chain components appear in the BOM. | Confirm current frame supplier and which cable chains remain installed. |

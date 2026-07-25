@@ -9,9 +9,13 @@ implementation source of truth.
 
 - **Config-verified, user-confirmed:** Voron 2.4, 300 mm class, CoreXY.
   Configured travel is X300, Y300, Z280.
-- **User-confirmed:** FYSETC Spider v1.1 main controller with TMC2209 drivers,
-  using a conventional toolhead cable harness rather than CAN.
+- **User-confirmed, config-verified:** FYSETC Spider v1.1 main controller with
+  an STM32F446 MCU and TMC2209 drivers, using a conventional toolhead cable
+  harness rather than CAN.
 - **Runtime-validated:** Raspberry Pi 4 host running Debian 12 Bookworm.
+- **User-confirmed:** the installed 24 V supply is a Mean Well LRS-200-24.
+  There is no standalone 5 V supply; the Raspberry Pi's current power route
+  has not yet been documented.
 - **Config-verified:** current configured nozzle is 0.4 mm and Klipper pressure
   advance is 0.02.
 - **User-confirmed:** current extruder is BMGWW/WW-BMG driven by an
@@ -33,6 +37,10 @@ implementation source of truth.
   290 x 290 mm 230 V AC heater, Graviflex magnet, and removable spring steel.
   The active Energetic plate has smooth and textured PEI sides; it is damaged
   but serviceable. An unused Fermiolab single-sided plate is the spare.
+- **Partially user-confirmed:** the bed relay carries an `SSR-500` family
+  marking; the purchase record identifies `SSR-500-1DA48-10`, 230 V AC /
+  10 A. Its exact manufacturer and the heater assembly's thermal-protection
+  details have not been physically verified.
 - **Unresolved:** exact installed outer toolhead housing.
 
 Implementation: [printer.cfg](../../printer.cfg). Detailed physical inventory:
@@ -224,4 +232,9 @@ remain snapshots rather than configuration truth.
 
 - Exact outer toolhead housing
 - Final PTFE segment and connector dimensions near the extruder
+- Raspberry Pi 5 V power route
+- Exact bed-SSR manufacturer and full installed label
+- Bed thermal-protection type, trip rating, location, and wiring
+- Physical confirmation of the mains inlet fuse rating; its purchase record
+  says 10 A
 - Current physical contents of every lane

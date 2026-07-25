@@ -130,11 +130,21 @@ Pending while the printer is idle:
   LDO-42STH40-2004MAC(VRN) A/B motors, four LDO-42STH48-2004AC(VRN) Z
   motors, LDO-36STH20-1004AHG extruder motor, and all eight original RobotDigg
   MGN9H 350 mm rails in the earlier dual-X-rail arrangement.
+- **User-confirmed complete for the third batch:** Mean Well LRS-200-24
+  remains the installed 24 V supply; no standalone 5 V supply is installed;
+  and the Spider v1.1 carries an STM32F446 MCU. The bed relay is confirmed
+  only to the `SSR-500` family, with `SSR-500-1DA48-10` and 230 V AC / 10 A
+  coming from the purchase record rather than a complete physical-label
+  inspection. The mains-inlet purchase record says 10 A.
+- Still unresolved for the power system: Raspberry Pi 5 V source, exact SSR
+  manufacturer/full label, physical mains-fuse rating, and the Keenovo
+  heater assembly's thermal-protection type and rating.
 - The active Energetic smooth/textured PEI plate is damaged but serviceable;
   replacement is future maintenance. The Fermiolab single-sided plate remains
   an unused spare.
-- Continue the owner-confirmation batches for power hardware, endstops, fans,
-  frame, cable chains, and enclosure panels.
+- Continue the owner-confirmation batches for endstops, fans, frame, cable
+  chains, and enclosure panels. Resolve the remaining power details during a
+  future safe physical inspection rather than from assumptions.
 - Detailed status and original-BOM conflicts are tracked in
   [`HARDWARE_INVENTORY.md`](HARDWARE_INVENTORY.md).
 
