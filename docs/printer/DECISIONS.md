@@ -85,3 +85,11 @@ These are current choices, not a list of every experiment.
     complete Raspberry Pi backup. Local authentication stored in untracked Git
     metadata is not a public-repository leak and does not by itself block the
     backup; credentials must simply remain out of tracked content.
+25. Approach the front-left Crossbow cutter from in front of its depressor.
+    Use Happy Hare's `user_pre_unload_extension` to call the tracked
+    `_CROSSBOW_SAFE_APPROACH` macro rather than modifying Happy Hare's cutter
+    implementation. When starting at X20 or left, clear laterally to X20
+    before changing Y; when starting right of X20, move diagonally to X20 Y15.
+    Then move laterally to the configured X4 cutter lane. This prevents the
+    protruding lever from approaching the fixed depressor from behind while
+    avoiding unnecessary orthogonal travel from the rest of the bed.

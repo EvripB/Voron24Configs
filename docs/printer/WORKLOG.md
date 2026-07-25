@@ -1,6 +1,6 @@
 # Active work
 
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 
 An intermittent gate-10 transport and toolhead-reach fault is under
 investigation. The July 23 multicolor print remains the successful 89/89
@@ -75,7 +75,26 @@ toolchange baseline.
 - Reliability result: 89/89 toolchange operations, zero job pauses, average
   complete swap 59.7 seconds.
 
-### 4. Complete and validate the Raspberry Pi recovery plan
+### 4. Calibrate ABS flow ratio; first-layer gaps resolved
+
+- The July 25 FlowGuard test G-code uses `filament_flow_ratio = 0.926` for
+  `ABS - TradRack`.
+- The first layer showed visible gaps despite a live Z adjustment, while the
+  second layer appeared correct and the encoder flowrate stabilized at 100%.
+- The generated first layer is 0.20 mm high and 0.50 mm wide at up to
+  105 mm/s. Its actual extrusion commands include the 0.926 filament ratio;
+  `first_layer_flow_ratio = 1` is a multiplier and does not replace it.
+- **Runtime-validated, user-confirmed:** a cold paper
+  `Z_ENDSTOP_CALIBRATE` performed after correcting the mechanical endstop
+  contact XY saved `stepper_z.position_endstop = 1.200`, replacing 1.160.
+  The unchanged 200x80 mm test then produced a top-notch first layer across
+  the bed. The severe uniform gaps were therefore a 0.040 mm Z-reference
+  error, not evidence that the ABS filament ratio was wrong.
+- Retain 0.926 for normal printing until Orca's Flow Rate Pass 1 and Pass 2
+  calibrate the current ABS independently. Do not use the now-resolved first
+  layer as a reason to increase either the base or first-layer flow ratio.
+
+### 5. Complete and validate the Raspberry Pi recovery plan
 
 Completed documentation:
 
@@ -112,8 +131,13 @@ unchanged static configuration:
   short of the pre-extruder sensor. This is consistent with variable slack or
   a downstream transition/sensor problem rather than encoder-measured
   underfeed on that attempt.
-- `gate_unload_buffer: 80` and `gate_homing_max: 80` provide effectively no
-  unload under-travel reserve.
+- The July 25 print-end unload cleared the Bowden path but initially failed to
+  clear the encoder within the configured limit. Automatic recovery then
+  confirmed the encoder clear and set the state to unloaded.
+- **Runtime-validated, user-confirmed:** `gate_unload_buffer` remains 80 mm
+  and `gate_homing_max` is 100 mm, restoring 20 mm of slow-homing reserve. A
+  full T10 manual unload after the first-layer test cleared the encoder and
+  completed successfully.
 - Gate 10 has now produced both load and unload failures. A prior unload also
   showed 1937.4 mm commanded versus 1916.3 mm encoder movement. Treat these as
   part of the same intermittent transport investigation, not a separate
@@ -127,8 +151,8 @@ Pending:
   entrance, and pre-extruder sensor operation.
 - Re-establish a known unloaded state before controlled comparisons with
   another gate and a fixed toolhead position.
-- After the mechanical path is reliable, restore deliberate load and unload
-  homing margin instead of masking a transport failure with distance alone.
+- Continue to treat any future pickup or grinding faults as separate
+  mechanical problems rather than increasing unload distance again.
 
 ### FlowGuard false compression trip
 
@@ -148,6 +172,14 @@ Pending action, while the printer is idle:
 - If those checks pass, increase `flowguard_max_relief` from 80 mm to 100 mm,
   restart when separately authorized, and validate against sustained
   extrusion while retaining the encoder-based protection.
+
+### Crossbow cutter approach
+
+- **Runtime-validated, user-confirmed:** the update-safe
+  `_CROSSBOW_SAFE_APPROACH` hook uses a two-stage X20-then-Y15 route when
+  starting at X20 or left, and a direct diagonal to X20 Y15 when starting
+  right of X20. A complete T10 manual unload validated the integrated
+  extension, Crossbow cut, and return to the unloaded state.
 
 ## Backlog
 

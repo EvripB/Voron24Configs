@@ -1,6 +1,6 @@
 # Current printer state
 
-Last reconciled: 2026-07-24
+Last reconciled: 2026-07-25
 
 This file records stable current facts. Active configuration remains the
 implementation source of truth.
@@ -27,6 +27,12 @@ Implementation: [printer.cfg](../../printer.cfg).
 ## Homing, mesh, and macros
 
 - **Config-verified:** safe Z homing is X206 Y297.
+- **Runtime-validated, user-confirmed (2026-07-25):** after centering the
+  nozzle over the mechanical Z-endstop pin, a cold paper
+  `Z_ENDSTOP_CALIBRATE` saved `stepper_z.position_endstop` as 1.200 mm,
+  replacing 1.160 mm. The unchanged 200x80 mm ABS test then produced a
+  top-notch first layer across the bed, confirming that the prior uniform
+  gaps came from the 0.040 mm Z-reference error.
 - **Config-verified:** bed mesh spans X/Y 40-260, uses a 9x9 probe grid, and
   has a 5 mm adaptive margin.
 - **Runtime-loaded, pending print validation (2026-07-24):** `PRINT_START`
@@ -36,6 +42,9 @@ Implementation: [printer.cfg](../../printer.cfg).
   profile `adaptive_orca`.
 - **Config-verified:** custom `PRIME_LINE`, `REQUIRE_TRADRACK`, and Talking
   Voron speech/temperature-warning functionality are active.
+- **Runtime-validated, user-confirmed:** `MMU_HOME_SAFE` provides an update-safe
+  Mainsail homing control that moves only when Happy Hare reports filament as
+  confirmed unloaded (`filament_pos == 0`).
 - The new macro configuration loaded cleanly after restart. A two-tool Orca
   export has also passed the generated-parameter and tower-coverage audit; an
   actual probing run still needs validation, and tower placement still needs
@@ -62,6 +71,10 @@ Implementation: [printer.cfg](../../printer.cfg) and
 - **Config-verified:** sync feedback and FlowGuard are enabled. Blobifier and
   standalone purging are disabled; the slicer purge tower currently owns
   in-print flushing.
+- **Config-verified, runtime-observed:** Happy Hare has
+  `unload_tool_on_cancel = False`. Cancelling a print parks the toolhead but
+  intentionally leaves the selected filament loaded; use a normal
+  `MMU_UNLOAD` when an unload is wanted after cancellation.
 - **Config-verified:** Spoolman integration is off. Gate material/color
   metadata is stored by Happy Hare and is not automatically synchronized to
   Orca.
@@ -91,12 +104,19 @@ Other important current values:
 - Extruder homing speed: 18 mm/s
 - Extruder force homing: enabled, maximum 80 mm
 - Toolhead homing maximum: 50 mm
-- Gate unload buffer and gate homing maximum: 80 mm
+- **Runtime-validated, user-confirmed:** gate unload buffer remains 80 mm and
+  gate homing maximum is 100 mm, restoring 20 mm of slow-homing reserve. A
+  full T10 manual unload completed successfully with the new limit.
 - FlowGuard relief: 80 mm; encoder mode: automatic
 - Crossbow configured blade/retract/pushback inputs: 69.2 / 64.2 / 60 mm.
   Blade minus retract leaves a nominal 5 mm before runtime adjustments; actual
   executed moves can be shorter.
 - Cutter pin: X4 Y20; fully compressed at X4 Y34
+- **Runtime-validated, user-confirmed:** full unloads invoke
+  `_CROSSBOW_SAFE_APPROACH`. From X20 or left it clears laterally to X20
+  before moving to Y15; from right of X20 it moves diagonally to X20 Y15. The
+  stock cutter then moves laterally to X4 and performs its Y15-Y34 stroke. A
+  complete T10 manual unload validated the integrated cut and transport path.
 - Automatic retry after a failed toolchange: disabled
 
 Selector offsets, encoder calibration, Bowden calibration, gate metadata, and
