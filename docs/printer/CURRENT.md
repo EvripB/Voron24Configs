@@ -117,6 +117,12 @@ Other important current values:
   before moving to Y15; from right of X20 it moves diagonally to X20 Y15. The
   stock cutter then moves laterally to X4 and performs its Y15-Y34 stroke. A
   complete T10 manual unload validated the integrated cut and transport path.
+- **Runtime-validated, user-confirmed:** immediately after cutting,
+  `_CROSSBOW_SAFE_DEPARTURE` moves laterally from the cutter's X4 Y15 park
+  position to X20 Y15 through Happy Hare's `user_post_form_tip_extension`.
+  This clears the fixed depressor before Happy Hare restores diagonally toward
+  the saved position. A supervised X4 Y15 to X20 Y15 departure and subsequent
+  X150 Y280 restore test validated the route.
 - Automatic retry after a failed toolchange: disabled
 
 Selector offsets, encoder calibration, Bowden calibration, gate metadata, and

@@ -93,3 +93,8 @@ These are current choices, not a list of every experiment.
     Then move laterally to the configured X4 cutter lane. This prevents the
     protruding lever from approaching the fixed depressor from behind while
     avoiding unnecessary orthogonal travel from the rest of the bed.
+26. Depart the Crossbow cutter laterally before restoring a saved toolhead
+    position. Use Happy Hare's `user_post_form_tip_extension` to call the
+    tracked `_CROSSBOW_SAFE_DEPARTURE` macro, moving from X4 Y15 to X20 Y15
+    before any diagonal restore. This keeps the cutter-specific behavior
+    update-safe and avoids changing the global MMU parking route.

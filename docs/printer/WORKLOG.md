@@ -173,13 +173,17 @@ Pending action, while the printer is idle:
   restart when separately authorized, and validate against sustained
   extrusion while retaining the encoder-based protection.
 
-### Crossbow cutter approach
+### Crossbow cutter approach and departure
 
 - **Runtime-validated, user-confirmed:** the update-safe
   `_CROSSBOW_SAFE_APPROACH` hook uses a two-stage X20-then-Y15 route when
   starting at X20 or left, and a direct diagonal to X20 Y15 when starting
   right of X20. A complete T10 manual unload validated the integrated
   extension, Crossbow cut, and return to the unloaded state.
+- **Runtime-validated, user-confirmed:** the paired
+  `_CROSSBOW_SAFE_DEPARTURE` hook moves laterally from X4 Y15 to X20 Y15
+  immediately after cutting. A supervised hook and restore test confirmed
+  that the subsequent path to X150 Y280 clears the fixed depressor.
 
 ## Backlog
 

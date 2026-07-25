@@ -84,6 +84,12 @@ identities remain approximate.
   history. With owner-only Raspberry Pi access, this was classified as local
   authentication state rather than a public token leak.
 
+## July 25, 2026
+
+- Added and physically validated an update-safe Crossbow departure hook that
+  clears laterally from X4 Y15 to X20 Y15 before Happy Hare restores the
+  toolhead toward its saved position.
+
 ## Superseded statements
 
 - Current nozzle is not unknown: configuration is 0.4 mm.
