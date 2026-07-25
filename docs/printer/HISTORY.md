@@ -106,6 +106,13 @@ identities remain approximate.
   as twelve FV3 passive rewinders inside the actively heated filament
   enclosure and one-sided Belay hardware controlled natively by Happy Hare;
   Annex's standalone Belay Klipper module is not active.
+- A multicolor print shut down with simultaneous Spider and ERB
+  `Timer too close` faults four seconds after a large sparse Git checkout
+  finished writing and unpacking on the Raspberry Pi. Host evidence showed
+  ample memory, no swap, normal temperatures, no throttling or undervoltage,
+  sufficient free storage, and no logged SD-card error. The checkout is the
+  leading cause rather than proven causation; large host I/O is now prohibited
+  during active prints.
 
 ## Superseded statements
 

@@ -66,7 +66,9 @@ These are current choices, not a list of every experiment.
 19. Treat the Git repository as public. Keep credentials, authentication
     secrets, and other sensitive data out of tracked files and command output.
 20. During an active print, default to read-only observation. Runtime changes
-    require explicit authorization for that specific action.
+    require explicit authorization for that specific action. Do not run large
+    Git fetches/checkouts, archive extraction, compression, backups, package
+    operations, or other substantial host I/O while Klipper is printing.
 21. Until a deliberately validated integration replaces it, synchronize
     TradRack lanes to Orca manually. Happy Hare is authoritative for gate
     identity, material, and color; validated Orca presets are authoritative for
