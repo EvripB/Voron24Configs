@@ -126,11 +126,15 @@ Pending while the printer is idle:
 - **User-confirmed complete for the first batch:** Omron TL-Q5MC2-Z probe,
   Trianglelab Dragon V2.0 High Flow plus MZE, ATC Semitec 104GT-2 thermistor,
   generic 24 V / 70 W cartridge, and the complete bed/print-surface stack.
+- **User-confirmed complete for the second batch:** two
+  LDO-42STH40-2004MAC(VRN) A/B motors, four LDO-42STH48-2004AC(VRN) Z
+  motors, LDO-36STH20-1004AHG extruder motor, and all eight original RobotDigg
+  MGN9H 350 mm rails in the earlier dual-X-rail arrangement.
 - The active Energetic smooth/textured PEI plate is damaged but serviceable;
   replacement is future maintenance. The Fermiolab single-sided plate remains
   an unused spare.
-- Continue the owner-confirmation batches for motors, rails, power hardware,
-  endstops, fans, frame, cable chains, and enclosure panels.
+- Continue the owner-confirmation batches for power hardware, endstops, fans,
+  frame, cable chains, and enclosure panels.
 - Detailed status and original-BOM conflicts are tracked in
   [`HARDWARE_INVENTORY.md`](HARDWARE_INVENTORY.md).
 

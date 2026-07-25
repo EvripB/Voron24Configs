@@ -31,11 +31,20 @@ original-build purchases that may have been replaced.
 | Display | RGB Mini 12864 | Config-verified and present in the original BOM; physical revision remains unconfirmed. |
 | Toolhead connection | Conventional cable harness | User-confirmed; the printer does not currently use a CAN toolhead. |
 
+### Motion system
+
+| Component | Current identity | Evidence and notes |
+| --- | --- | --- |
+| A/B motors | Two LDO-42STH40-2004MAC(VRN) motors | User-confirmed from retained box labels. The configured 400 full steps per rotation corroborate their 0.9-degree setup. |
+| Z motors | Four LDO-42STH48-2004AC(VRN) motors | User-confirmed from the original motor set and current installation. |
+| Linear rails | Eight RobotDigg MGN9H 350 mm rails | User-confirmed; all eight original rails remain installed. The machine retains the earlier dual-MGN9 X-axis arrangement and has not been converted to the later single-MGN12 X rail. |
+
 ### Toolhead and extrusion
 
 | Component | Current identity | Evidence and notes |
 | --- | --- | --- |
-| Extruder | BMGWW/WW-BMG | User-confirmed; exact installed motor remains unresolved. |
+| Extruder | BMGWW/WW-BMG | User-confirmed. |
+| Extruder motor | LDO-36STH20-1004AHG | User-confirmed from the installed motor identity. |
 | Hotend | Trianglelab Dragon Hotend V2.0 High Flow | User-confirmed from the original purchase and current installation. |
 | Melt-zone extension | Trianglelab Melt Zone Extender (MZE) | User-confirmed addition to the Dragon HF. |
 | Heater cartridge | Generic 24 V / 70 W cartridge | User-confirmed; purchased from AliExpress, manufacturer and model unknown. |
@@ -86,10 +95,6 @@ These are useful leads, not assertions about current installation.
 
 | Subsystem | Original-BOM candidate or conflict | Confirmation needed |
 | --- | --- | --- |
-| A/B motors | `Specs` lists LDO-42STH40-2004MAC(VRN); config comments instead name LDO-42STH40-1004MAH(VRN). | Read the installed motor labels or establish which source reflects the final build. |
-| Z motors | Four LDO-42STH48-2004AC(VRN). | Confirm whether all four remain installed. |
-| Extruder motor | Original sheets list both LDO-42STH20-1004ASH-MM(VRN) and LDO-36STH20-1004AHC(XH). | Identify the motor currently fitted to the BMGWW. |
-| Linear rails | Eight RobotDigg MGN9H 350 mm rails were purchased. | Confirm installed rail brand, count, and whether any were replaced. |
 | Motion belts | 9 mm and 6 mm GT2 belts, loops, pulleys, and idlers. | Confirm current belt brands only if useful for maintenance; dimensions are largely implied by the Voron design. |
 | 24 V power supply | Mean Well LRS-200-24. | Confirm it remains installed. |
 | 5 V power supply | Mean Well RS-25-5. | Confirm it remains installed. |

@@ -14,7 +14,14 @@ implementation source of truth.
 - **Runtime-validated:** Raspberry Pi 4 host running Debian 12 Bookworm.
 - **Config-verified:** current configured nozzle is 0.4 mm and Klipper pressure
   advance is 0.02.
-- **User-confirmed:** current extruder is BMGWW/WW-BMG.
+- **User-confirmed:** current extruder is BMGWW/WW-BMG driven by an
+  LDO-36STH20-1004AHG motor.
+- **User-confirmed, config-verified:** A/B use two
+  LDO-42STH40-2004MAC(VRN) motors in the configured 0.9-degree setup; Z uses
+  four LDO-42STH48-2004AC(VRN) motors.
+- **User-confirmed:** all eight original RobotDigg MGN9H 350 mm rails remain
+  installed. The X axis retains the earlier dual-MGN9 arrangement and has not
+  been converted to a single MGN12 rail.
 - **User-confirmed:** current hotend is a Trianglelab Dragon Hotend V2.0 High
   Flow with a Trianglelab Melt Zone Extender (MZE). The configured and
   user-confirmed thermistor is an ATC Semitec 104GT-2.
@@ -216,6 +223,5 @@ remain snapshots rather than configuration truth.
 ## Physical facts still needing confirmation
 
 - Exact outer toolhead housing
-- Exact currently installed extruder motor
 - Final PTFE segment and connector dimensions near the extruder
 - Current physical contents of every lane
