@@ -149,7 +149,13 @@ Other important current values:
 - **Runtime-validated, user-confirmed:** gate unload buffer remains 80 mm and
   gate homing maximum is 100 mm, restoring 20 mm of slow-homing reserve. A
   full T10 manual unload completed successfully with the new limit.
-- FlowGuard relief: 80 mm; encoder mode: automatic
+- **Config-verified, runtime-validated:** FlowGuard relief remains 80 mm and
+  encoder mode remains automatic. After the loose WW-BMG latch was corrected,
+  the Blobifier-tray retry ran for 39 minutes 49 seconds with extruder
+  synchronization enabled, cycled normally between tension and neutral, and
+  reached Z2 without another FlowGuard trip. Retain 80 mm unless the warning
+  becomes reproducible with the extruder latch and filament path confirmed
+  secure.
 - Crossbow configured blade/retract/pushback inputs: 69.2 / 64.2 / 60 mm.
   Blade minus retract leaves a nominal 5 mm before runtime adjustments; actual
   executed moves can be shorter.

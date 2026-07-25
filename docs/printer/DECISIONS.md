@@ -1,6 +1,6 @@
 # Durable decisions
 
-Last reconciled: 2026-07-24
+Last reconciled: 2026-07-25
 
 These are current choices, not a list of every experiment.
 
@@ -98,3 +98,11 @@ These are current choices, not a list of every experiment.
     tracked `_CROSSBOW_SAFE_DEPARTURE` macro, moving from X4 Y15 to X20 Y15
     before any diagonal restore. This keeps the cutter-specific behavior
     update-safe and avoids changing the global MMU parking route.
+27. Retain `flowguard_max_relief` at 80 mm. The two 80.19/80.20 mm compression
+    trips occurred before the loose WW-BMG latch was discovered. After
+    securing the latch, the same Blobifier-tray region ran for 39 minutes
+    49 seconds to Z2 with synchronization enabled, normal tension/neutral
+    cycling, and no recurrence. The loose latch is the leading explanation,
+    not proven causation; reconsider the threshold or a sync-disabled
+    comparison only if the fault becomes reproducible with the extruder and
+    filament path confirmed secure.

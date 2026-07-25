@@ -200,24 +200,24 @@ Pending:
 - Continue to treat any future pickup or grinding faults as separate
   mechanical problems rather than increasing unload distance again.
 
-### FlowGuard false compression trip
+### FlowGuard false compression trip; retain current limit
 
-A sustained solid-infill segment produced a tension-only Belay/FlowGuard
-`Compression stuck` warning at 80.19 mm of modeled relief. The preceding
-open-sensor interval reached approximately 78.4 mm before tension returned,
-leaving essentially no margin at the current 80 mm threshold.
+A sustained solid-infill segment produced two Belay/FlowGuard `Compression
+stuck` warnings at 80.19 mm and 80.20 mm of modeled relief. These occurred
+before the loose WW-BMG latch was discovered and secured.
 
-Pending action, while the printer is idle:
+Resolution and monitoring:
 
-- Verify Belay travel, switch actuation, PTFE seating, and sensor polarity.
-- Before changing the relief limit, run a controlled comparison with
-  `MMU_TEST_CONFIG SYNC_TO_EXTRUDER=0` on a small, low-flow, single-color
-  print. This is a runtime-only test: restore it afterward with
-  `MMU_TEST_CONFIG SYNC_TO_EXTRUDER=1`; no restart or configuration edit is
-  required.
-- If those checks pass, increase `flowguard_max_relief` from 80 mm to 100 mm,
-  restart when separately authorized, and validate against sustained
-  extrusion while retaining the encoder-based protection.
+- **Runtime-validated, user-confirmed (2026-07-25):** after securing the
+  extruder latch, the Blobifier-tray retry ran from 16:00:45 to 16:40:34 with
+  synchronization enabled. Belay repeatedly and normally cycled between
+  tension and neutral, FlowGuard did not trip, and the owner paused at Z2.
+- Keep `flowguard_max_relief` at 80 mm. Raising it to 100 mm is no longer a
+  pending task because the repeat test passed with the protection unchanged.
+- Treat the loose latch as the leading explanation rather than proven
+  causation. If the warning recurs with the latch secure, first inspect Belay
+  travel, switch actuation, PTFE seating, and sensor polarity. A temporary
+  sync-disabled comparison remains available at that point.
 
 ### Crossbow cutter approach and departure
 
