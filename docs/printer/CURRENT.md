@@ -23,6 +23,8 @@ implementation source of truth.
 - **User-confirmed, config-verified:** A/B use two
   LDO-42STH40-2004MAC(VRN) motors in the configured 0.9-degree setup; Z uses
   four LDO-42STH48-2004AC(VRN) motors.
+- **User-confirmed:** the 300 mm frame is LDO, motion uses Gates GT2 belts,
+  the cable chains are IGUS, and the enclosure panels are acrylic.
 - **User-confirmed:** X and Y home against a Hall-effect XY-endstop board.
 - **User-confirmed:** all eight original RobotDigg MGN9H 350 mm rails remain
   installed. The X axis retains the earlier dual-MGN9 arrangement and has not

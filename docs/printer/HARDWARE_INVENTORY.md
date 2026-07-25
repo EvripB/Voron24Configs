@@ -39,10 +39,19 @@ original-build purchases that may have been replaced.
 
 | Component | Current identity | Evidence and notes |
 | --- | --- | --- |
+| Frame | LDO 300 mm Voron 2.4 frame | User-confirmed. |
 | A/B motors | Two LDO-42STH40-2004MAC(VRN) motors | User-confirmed from retained box labels. The configured 400 full steps per rotation corroborate their 0.9-degree setup. |
 | Z motors | Four LDO-42STH48-2004AC(VRN) motors | User-confirmed from the original motor set and current installation. |
 | Linear rails | Eight RobotDigg MGN9H 350 mm rails | User-confirmed; all eight original rails remain installed. The machine retains the earlier dual-MGN9 X-axis arrangement and has not been converted to the later single-MGN12 X rail. |
+| Motion belts | Gates GT2 belts | Manufacturer is user-confirmed. The original BOM lists both 6 mm and 9 mm belt hardware, but the installed widths and lengths have not been independently inventoried. |
+| Cable chains | IGUS cable chains | User-confirmed. Exact chain series, link counts, and replacement lengths are not recorded. |
 | X/Y endstops | Hall-effect XY-endstop board | User-confirmed. The active configuration uses separate X and Y endstop inputs. |
+
+### Enclosure
+
+| Component | Current identity | Evidence and notes |
+| --- | --- | --- |
+| Panels | Acrylic panels | User-confirmed. Exact thicknesses and individual panel dimensions are not recorded. |
 
 ### Toolhead and extrusion
 
@@ -110,6 +119,4 @@ These are useful leads, not assertions about current installation.
 
 | Subsystem | Original-BOM candidate or conflict | Confirmation needed |
 | --- | --- | --- |
-| Motion belts | 9 mm and 6 mm GT2 belts, loops, pulleys, and idlers. | Confirm current belt brands only if useful for maintenance; dimensions are largely implied by the Voron design. |
-| Frame and rails | LDO/Fermiolab-era 300 mm frame and IGUS chain components appear in the BOM. | Confirm current frame supplier and which cable chains remain installed. |
-| Enclosure panels | Coroplast and clear acrylic panel sets appear in the original BOM. | Confirm current panel materials if enclosure thermal behavior is investigated. |
+| Belt and cable-chain replacement geometry | The BOM lists 6 mm and 9 mm GT2 hardware and IGUS components. | Measure exact installed widths, lengths, chain series, and link counts only when ordering replacements. |

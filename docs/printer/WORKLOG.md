@@ -140,15 +140,18 @@ Pending while the printer is idle:
   board; A4T toolhead with two 4010 part-cooling blowers and one 2510 axial
   hotend fan; and two Gdstime GDA6020 dual-ball-bearing 24 V / 0.1 A
   electronics-bay fans, one on each side.
+- **User-confirmed complete for the fifth batch:** LDO 300 mm frame, Gates GT2
+  belts, IGUS cable chains, and acrylic enclosure panels.
 - Still unresolved for the power system: Raspberry Pi 5 V source, complete SSR
   model/rating label, physical mains-fuse rating, and the Keenovo heater
   assembly's thermal-protection type and rating.
 - The active Energetic smooth/textured PEI plate is damaged but serviceable;
   replacement is future maintenance. The Fermiolab single-sided plate remains
   an unused spare.
-- Continue the owner-confirmation batches for motion belts, frame, cable
-  chains, and enclosure panels. Resolve the remaining power details during a
-  future safe physical inspection rather than from assumptions.
+- The major original-BOM owner-confirmation sweep is complete. Resolve the
+  remaining power details during a future safe physical inspection; collect
+  exact belt dimensions and IGUS chain series/link counts only when
+  replacement planning makes those measurements useful.
 - Detailed status and original-BOM conflicts are tracked in
   [`HARDWARE_INVENTORY.md`](HARDWARE_INVENTORY.md).
 
