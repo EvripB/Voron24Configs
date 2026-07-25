@@ -1,6 +1,6 @@
 # Printer hardware inventory
 
-Last reconciled: 2026-07-25
+Last reconciled: 2026-07-26
 
 This file records physical printer hardware in more detail than
 [`CURRENT.md`](CURRENT.md). It distinguishes confirmed installed parts from
@@ -88,10 +88,15 @@ original-build purchases that may have been replaced.
 | Component | Current identity | Evidence and notes |
 | --- | --- | --- |
 | MMU | TradRack 1.0e with Binky encoder | Config-verified. |
+| MMU controller | FYSETC ERB v2 with RP2040 MCU | Config-verified from the active ERB v2 aliases and RP2040 USB identity. The controller uses USB serial; the exact installed power/communication jumper positions still require a board photograph. |
 | Physical lanes | 14 | User-confirmed; only gates 0-11 are commissioned because the enclosure stores 12 filaments. |
 | Spool handling | Filamentalist v3 | User-confirmed and config-verified; no separate filament-storage buffer. |
 | Tension feedback | Belay mechanism | User-confirmed; used by Happy Hare sync feedback and FlowGuard. |
 | Toolhead sensing | Pre-extruder and post-extruder filament sensors | User-confirmed and config-verified. |
+
+The board pinout, active ERB assignments, mechanical service notes, and
+supplier package inventory are preserved in
+[TRADRACK_REFERENCE.md](TRADRACK_REFERENCE.md).
 
 ## Service and replacement notes
 

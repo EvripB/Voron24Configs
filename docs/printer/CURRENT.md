@@ -1,6 +1,6 @@
 # Current printer state
 
-Last reconciled: 2026-07-25
+Last reconciled: 2026-07-26
 
 This file records stable current facts. Active configuration remains the
 implementation source of truth.
@@ -102,8 +102,8 @@ Implementation: [printer.cfg](../../printer.cfg) and
 - **Config-verified:** exactly 12 gates are enabled: gates 0-11. Gates 12 and
   13 are outside the operating scope. Old statistics keys do not make them
   active.
-- **Config-verified:** TradRack 1.0e with a Binky encoder and USB-connected MMU
-  controller.
+- **Config-verified:** TradRack 1.0e with a Binky encoder and USB-connected
+  FYSETC ERB v2 controller using its RP2040 MCU.
 - **User-confirmed, config-verified:** Filamentalist v3 spool handling with no
   separate filament-storage buffer (`has_filament_buffer: 0`).
 - **Config-verified:** sensing includes the gate sensor, Binky encoder, a
@@ -194,6 +194,10 @@ Read their live values from:
   but it did not interrupt the completed print.
 
 Runtime evidence: `logs/mmu.log` in the `printer_data` root.
+
+The archived source documents, ERB v2 pin map, supplier kit lists, and
+printer-specific pin reconciliation are indexed in
+[TRADRACK_REFERENCE.md](TRADRACK_REFERENCE.md).
 
 ## OrcaSlicer workflows
 

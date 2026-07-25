@@ -1,6 +1,6 @@
 # Active work
 
-Last updated: 2026-07-25
+Last updated: 2026-07-26
 
 An intermittent gate-10 transport and toolhead-reach fault is under
 investigation. The July 23 multicolor print remains the successful 89/89
@@ -121,7 +121,10 @@ Pending while the printer is idle:
 
 - Create and verify an encrypted private backup of Moonraker's SQLite
   database, UUID/service state, network recovery data, Git authentication,
-  and any desired G-code/uploads.
+  and any desired G-code/uploads. Include
+  `codex_uploads/tradrack/` because its original PDFs, images, extracted text,
+  and offline ERB source snapshots are intentionally outside the public
+  configuration Git repository.
 - Perform a separate Talking Voron hardening review. Its current service
   listens on all interfaces and accepts an audio filename.
 - Treat the rebuild guide as audit-backed but not end-to-end tested until a

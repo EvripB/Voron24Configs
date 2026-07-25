@@ -90,6 +90,14 @@ identities remain approximate.
   clears laterally from X4 Y15 to X20 Y15 before Happy Hare restores the
   toolhead toward its saved position.
 
+## July 26, 2026
+
+- Preserved the uploaded TradRack/ERB documentation as a local source archive,
+  extracted searchable text from all 71 PDF pages, captured the FYSETC ERB v2
+  repository and Happy Hare ERB MCU reference at identified commits, and added
+  a tracked printer-specific reference covering pin assignments, mechanical
+  guidance, source conflicts, and supplier kit inventories.
+
 ## Superseded statements
 
 - Current nozzle is not unknown: configuration is 0.4 mm.

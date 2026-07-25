@@ -1,6 +1,6 @@
 # Printer knowledge index
 
-Last reconciled: 2026-07-25
+Last reconciled: 2026-07-26
 
 This is the authoritative, compact knowledge set for the printer. It was
 distilled from the ChatGPT handoff candidates, this Codex session, active
@@ -15,6 +15,8 @@ configuration, generated G-code, and current logs.
 - [HISTORY.md](HISTORY.md) — condensed milestones and superseded facts
 - [HARDWARE_INVENTORY.md](HARDWARE_INVENTORY.md) — evidence-labeled current
   hardware, original-BOM candidates, replacements, and service notes
+- [TRADRACK_REFERENCE.md](TRADRACK_REFERENCE.md) — offline-source provenance,
+  ERB v2 pin map, TradRack mechanical guidance, and Trianglelab kit inventories
 - [HOST_INVENTORY.md](HOST_INVENTORY.md) — audited Raspberry Pi software,
   services, external dependencies, and backup boundaries
 - [RPI_REBUILD.md](RPI_REBUILD.md) — fresh-image recovery order and
