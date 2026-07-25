@@ -118,6 +118,22 @@ Pending while the printer is idle:
 - Treat the rebuild guide as audit-backed but not end-to-end tested until a
   spare-card recovery or actual reimage validates it.
 
+### 6. Reconcile the physical hardware inventory
+
+- The original-build `Voron_BOM.xlsx` has been parsed as candidate evidence,
+  not assumed current truth. Transactional fields are excluded from the public
+  repository.
+- **User-confirmed complete for the first batch:** Omron TL-Q5MC2-Z probe,
+  Trianglelab Dragon V2.0 High Flow plus MZE, ATC Semitec 104GT-2 thermistor,
+  generic 24 V / 70 W cartridge, and the complete bed/print-surface stack.
+- The active Energetic smooth/textured PEI plate is damaged but serviceable;
+  replacement is future maintenance. The Fermiolab single-sided plate remains
+  an unused spare.
+- Continue the owner-confirmation batches for motors, rails, power hardware,
+  endstops, fans, frame, cable chains, and enclosure panels.
+- Detailed status and original-BOM conflicts are tracked in
+  [`HARDWARE_INVENTORY.md`](HARDWARE_INVENTORY.md).
+
 ## Monitor
 
 ### Intermittent gate-10 transport and toolhead reach

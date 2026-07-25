@@ -15,21 +15,28 @@ implementation source of truth.
 - **Config-verified:** current configured nozzle is 0.4 mm and Klipper pressure
   advance is 0.02.
 - **User-confirmed:** current extruder is BMGWW/WW-BMG.
+- **User-confirmed:** current hotend is a Trianglelab Dragon Hotend V2.0 High
+  Flow with a Trianglelab Melt Zone Extender (MZE). The configured and
+  user-confirmed thermistor is an ATC Semitec 104GT-2.
 - **User-confirmed, config-verified:** a Crossbow-style cutter is installed and
   cuts through Y-axis toolhead motion.
-- **User-confirmed:** heater cartridge is reported as 24 V / 70 W.
-- **Unresolved:** exact installed outer toolhead housing and exact hotend
-  manufacturer/model. The measured geometry is Dragon-HF-style, but that does
-  not establish the manufacturer.
+- **User-confirmed:** the current heater cartridge is a generic 24 V / 70 W
+  AliExpress unit; its manufacturer and exact model are unknown.
+- **User-confirmed:** the bed stack is a 300 x 300 x 8 mm MIC6 plate, Keenovo
+  290 x 290 mm 230 V AC heater, Graviflex magnet, and removable spring steel.
+  The active Energetic plate has smooth and textured PEI sides; it is damaged
+  but serviceable. An unused Fermiolab single-sided plate is the spare.
+- **Unresolved:** exact installed outer toolhead housing.
 
-Implementation: [printer.cfg](../../printer.cfg).
+Implementation: [printer.cfg](../../printer.cfg). Detailed physical inventory:
+[HARDWARE_INVENTORY.md](HARDWARE_INVENTORY.md).
 
 ## Homing, mesh, and macros
 
 - **Config-verified:** safe Z homing is X206 Y297.
-- **User-confirmed, config-verified:** QGL and bed meshing use an Omron PL-08N
-  inductive probe mounted at X0 Y+20 relative to the nozzle. It is not the
-  printer's Z reference; Z homes against the mechanical endstop.
+- **User-confirmed, config-verified:** QGL and bed meshing use an Omron
+  TL-Q5MC2-Z inductive probe mounted at X0 Y+20 relative to the nozzle. It is
+  not the printer's Z reference; Z homes against the mechanical endstop.
 - **Runtime-validated, user-confirmed (2026-07-25):** after centering the
   nozzle over the mechanical Z-endstop pin, a cold paper
   `Z_ENDSTOP_CALIBRATE` saved `stepper_z.position_endstop` as 1.200 mm,
@@ -208,7 +215,6 @@ remain snapshots rather than configuration truth.
 
 ## Physical facts still needing confirmation
 
-- Exact hotend manufacturer/model
 - Exact outer toolhead housing
 - Exact currently installed extruder motor
 - Final PTFE segment and connector dimensions near the extruder
