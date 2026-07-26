@@ -157,15 +157,20 @@ Pending while the printer is idle:
   electronics-bay fans, one on each side.
 - **User-confirmed complete for the fifth batch:** LDO 300 mm frame, Gates GT2
   belts, IGUS cable chains, and acrylic enclosure panels.
-- Still unresolved for the power system: complete SSR model/rating label,
-  physical mains-fuse rating, and the Keenovo heater assembly's
-  thermal-protection type and rating.
+- **Inventory reconciliation complete:** the installed bed relay is the
+  user-confirmed A-Senco `SSR-500` family; its purchase-record service identity
+  is `SSR-500-1DA48-10`, 230 V AC / 10 A. The mains-inlet purchase record says
+  10 A. Do not reopen either identity as missing merely because the installed
+  labels have not been reread; compare them opportunistically during future
+  bed or inlet service if useful.
+- Still unresolved for the power system: the Keenovo heater assembly's
+  thermal-protection type, location, trip rating, and wiring.
 - The active Energetic smooth/textured PEI plate is damaged but serviceable;
   replacement is future maintenance. The Fermiolab single-sided plate remains
   an unused spare.
-- The major original-BOM owner-confirmation sweep is complete. Resolve the
-  remaining power details during a future safe physical inspection; collect
-  exact belt dimensions and IGUS chain series/link counts only when
+- The major original-BOM owner-confirmation sweep is complete. Inspect the
+  genuinely unknown heater thermal protection during future safe bed service;
+  collect exact belt dimensions and IGUS chain series/link counts only when
   replacement planning makes those measurements useful.
 - Detailed status and original-BOM conflicts are tracked in
   [`HARDWARE_INVENTORY.md`](HARDWARE_INVENTORY.md).
@@ -242,7 +247,6 @@ Resolution and monitoring:
 - Evaluate a purge bucket/Blobifier workflow to purge most transition material
   off-print and retain only the minimum priming structure. Blobifier is
   currently disabled.
-- Physically document the final PTFE/connector path near the extruder.
 - Export and audit the direct-feed Orca profile, then perform its eventual
   physical feeder-state test. `REQUIRE_TRADRACK` behavior itself was already
   tested and must not be weakened in the TradRack profile.
@@ -272,3 +276,7 @@ Resolution and monitoring:
 - Established the reusable-project method and a safe candidate position for
   the current prime tower. Selected Orca's first-layer adaptive bounds instead
   of an unnecessarily slow unconditional full mesh.
+- Reconciled the user-supplied toolhead path: all PTFE from TradRack through
+  the WW-BMG entrance is ID3/OD4, with only an approximately 14 mm ID2/OD4
+  segment between the extruder and hotend. The current nozzle is a generic
+  AliExpress 0.4 mm brass nozzle, neither hardened nor CHT.

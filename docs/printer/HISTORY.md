@@ -122,6 +122,19 @@ identities remain approximate.
   65 seconds to about 49 seconds; production validation remains scoped to
   other gates and complete multicolor toolchanges.
 
+## July 27, 2026
+
+- Reconciled the power inventory with the owner's supplied evidence: the bed
+  SSR is the user-confirmed A-Senco `SSR-500` family, the purchase record
+  identifies `SSR-500-1DA48-10` at 230 V AC / 10 A, and the mains-inlet
+  purchase record says 10 A. Removed redundant physical-label readings from
+  active work while preserving their purchase-record provenance; only the
+  Keenovo heater assembly's thermal-protection details remain unidentified.
+- Recorded the owner-confirmed generic 0.4 mm brass nozzle as neither hardened
+  nor CHT, and closed the PTFE-dimension task with ID3/OD4 from TradRack
+  through the WW-BMG entrance plus an approximately 14 mm ID2/OD4 segment
+  between the extruder and hotend.
+
 ## Superseded statements
 
 - Current nozzle is not unknown: configuration is 0.4 mm.

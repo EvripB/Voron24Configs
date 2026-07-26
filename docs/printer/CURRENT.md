@@ -17,8 +17,9 @@ implementation source of truth.
   There is no standalone 5 V supply. The Raspberry Pi is powered through its
   USB-C input by an official Raspberry Pi USB-C power supply, selected for its
   current capacity and known compatibility with the Pi.
-- **Config-verified:** current configured nozzle is 0.4 mm and Klipper pressure
-  advance is 0.02.
+- **User-confirmed, config-verified:** the current nozzle is a generic
+  AliExpress 0.4 mm brass nozzle; it is neither hardened nor CHT. Klipper
+  pressure advance is 0.02.
 - **User-confirmed:** current extruder is BMGWW/WW-BMG driven by an
   LDO-36STH20-1004AHG motor.
 - **User-confirmed, config-verified:** A/B use two
@@ -44,9 +45,9 @@ implementation source of truth.
   The active Energetic plate has smooth and textured PEI sides; it is damaged
   but serviceable. An unused Fermiolab single-sided plate is the spare.
 - **User-confirmed:** the bed relay is an A-Senco `SSR-500`-series unit. The
-  purchase record identifies `SSR-500-1DA48-10`, 230 V AC / 10 A; the full
-  installed label and the heater assembly's thermal-protection details have
-  not been physically verified.
+  purchase record identifies `SSR-500-1DA48-10`, 230 V AC / 10 A. This is the
+  recorded service identity and no further SSR-identification task is active.
+  The heater assembly's thermal-protection details remain unknown.
 - **User-confirmed, config-corroborated:** the electronics bay is cooled by
   two Gdstime GDA6020 dual-ball-bearing 24 V / 0.1 A fans, one on each side.
 
@@ -128,6 +129,9 @@ Implementation: [printer.cfg](../../printer.cfg) and
 - **Config-verified:** Spoolman integration is off. Gate material/color
   metadata is stored by Happy Hare and is not automatically synchronized to
   Orca.
+- **User-confirmed:** all PTFE from TradRack through the WW-BMG entrance is
+  ID3/OD4. The only ID2/OD4 segment is approximately 14 mm long between the
+  extruder and hotend.
 
 Current CAD-derived geometry:
 
@@ -274,10 +278,4 @@ remain snapshots rather than configuration truth.
 
 ## Physical facts still needing confirmation
 
-- Final PTFE segment and connector dimensions near the extruder
-- Bed SSR full installed model suffix and rating; manufacturer A-Senco and
-  `SSR-500` family are confirmed
 - Bed thermal-protection type, trip rating, location, and wiring
-- Physical confirmation of the mains inlet fuse rating; its purchase record
-  says 10 A
-- Current physical contents of every lane
