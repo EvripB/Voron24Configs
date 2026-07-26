@@ -1,6 +1,6 @@
 # Active work
 
-Last updated: 2026-07-26
+Last updated: 2026-07-27
 
 An intermittent gate-10 transport and toolhead-reach fault is under
 investigation. The July 23 multicolor print remains the successful 89/89
@@ -148,15 +148,18 @@ Pending while the printer is idle:
   `SSR-500`-series unit, with `SSR-500-1DA48-10` and 230 V AC / 10 A coming
   from the purchase record rather than a complete physical-label inspection.
   The mains-inlet purchase record says 10 A.
+- **User-confirmed complete:** the Raspberry Pi is powered through its USB-C
+  input by an official Raspberry Pi USB-C power supply, selected for its
+  current capacity and known compatibility with the Pi.
 - **User-confirmed complete for the fourth batch:** Hall-effect X/Y-endstop
   board; A4T toolhead with two 4010 part-cooling blowers and one 2510 axial
   hotend fan; and two Gdstime GDA6020 dual-ball-bearing 24 V / 0.1 A
   electronics-bay fans, one on each side.
 - **User-confirmed complete for the fifth batch:** LDO 300 mm frame, Gates GT2
   belts, IGUS cable chains, and acrylic enclosure panels.
-- Still unresolved for the power system: Raspberry Pi 5 V source, complete SSR
-  model/rating label, physical mains-fuse rating, and the Keenovo heater
-  assembly's thermal-protection type and rating.
+- Still unresolved for the power system: complete SSR model/rating label,
+  physical mains-fuse rating, and the Keenovo heater assembly's
+  thermal-protection type and rating.
 - The active Energetic smooth/textured PEI plate is damaged but serviceable;
   replacement is future maintenance. The Fermiolab single-sided plate remains
   an unused spare.

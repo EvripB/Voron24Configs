@@ -29,7 +29,8 @@ original-build purchases that may have been replaced.
 | Main controller | FYSETC Spider v1.1, STM32F446 MCU, with TMC2209 drivers | User-confirmed from the board and chip markings; the active Klipper USB identity also reports `stm32f446xx`. |
 | Host | Raspberry Pi 4 | User-confirmed historically and runtime-validated on Debian 12 Bookworm. |
 | 24 V power supply | Mean Well LRS-200-24 | User-confirmed as still installed. |
-| Standalone 5 V supply | None installed | User-confirmed. The original-BOM Mean Well RS-25-5 was not installed; the Raspberry Pi's present power route remains unconfirmed. |
+| Raspberry Pi power | Official Raspberry Pi USB-C power supply | User-confirmed. The Pi is powered through its USB-C input; the official supply was selected for its current capacity and known compatibility with the Pi. |
+| Standalone 5 V supply | None installed | User-confirmed. The original-BOM Mean Well RS-25-5 was not installed. |
 | Mains inlet fuse | Probably 10 A | The owner's purchase email specifies 10 A, but the installed fuse has not been physically inspected. Treat 10 A as purchase-record evidence, not a verified fuse rating. |
 | Display | RGB Mini 12864 | Config-verified and present in the original BOM; physical revision remains unconfirmed. |
 | Toolhead connection | Conventional cable harness | User-confirmed; the printer does not currently use a CAN toolhead. |

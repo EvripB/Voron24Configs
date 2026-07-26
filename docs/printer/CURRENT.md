@@ -1,6 +1,6 @@
 # Current printer state
 
-Last reconciled: 2026-07-26
+Last reconciled: 2026-07-27
 
 This file records stable current facts. Active configuration remains the
 implementation source of truth.
@@ -14,8 +14,9 @@ implementation source of truth.
   harness rather than CAN.
 - **Runtime-validated:** Raspberry Pi 4 host running Debian 12 Bookworm.
 - **User-confirmed:** the installed 24 V supply is a Mean Well LRS-200-24.
-  There is no standalone 5 V supply; the Raspberry Pi's current power route
-  has not yet been documented.
+  There is no standalone 5 V supply. The Raspberry Pi is powered through its
+  USB-C input by an official Raspberry Pi USB-C power supply, selected for its
+  current capacity and known compatibility with the Pi.
 - **Config-verified:** current configured nozzle is 0.4 mm and Klipper pressure
   advance is 0.02.
 - **User-confirmed:** current extruder is BMGWW/WW-BMG driven by an
@@ -274,7 +275,6 @@ remain snapshots rather than configuration truth.
 ## Physical facts still needing confirmation
 
 - Final PTFE segment and connector dimensions near the extruder
-- Raspberry Pi 5 V power route
 - Bed SSR full installed model suffix and rating; manufacturer A-Senco and
   `SSR-500` family are confirmed
 - Bed thermal-protection type, trip rating, location, and wiring
