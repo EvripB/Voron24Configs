@@ -236,6 +236,15 @@ Resolution and monitoring:
 
 ## Backlog
 
+- Tomorrow, run a supervised TradRack long-transport speed trial at
+  300 mm/s and 400 mm/s²; do not treat those values as production-validated.
+  Start from the current 130/100 mm/s² load and 180/150 mm/s² unload baseline,
+  test loading and unloading as separate variables, and use repeated moves on
+  known-reliable gates. Compare commanded gear travel with encoder travel and
+  inspect for missed pickup, step loss, filament grinding, spool/rewinder
+  overshoot, and gate-parking inconsistency. Restore the baseline immediately
+  if any of those appear, and persist the faster values only after repeatable
+  successful full-length cycles.
 - Evaluate a purge bucket/Blobifier workflow to purge most transition material
   off-print and retain only the minimum priming structure. Blobifier is
   currently disabled.
