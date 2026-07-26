@@ -27,9 +27,13 @@ These are current choices, not a list of every experiment.
 7. Let Happy Hare own loading, unloading, and cutting. Orca should request tool
    changes but should not independently perform tip shaping or toolchange
    retract/load/unload motions.
-8. Keep long spool moves conservative. Current 130 mm/s at 100 mm/s² loading
-   and 180 mm/s at 150 mm/s² unloading prioritize reliable Filamentalist spool
-   handling over minimum swap time.
+8. Use 350 mm/s at 300 mm/s² for both long loading from the spool and long
+   unloading. This is the fastest staged setting accepted after twelve
+   supervised gate-2 cycles spanning the former baseline, 300/100, 300/200,
+   and 350/300. Gate 2's nearly full Filamentalist spool remained controlled
+   and encoder tracking stayed consistent. Treat this as gate-2 validation,
+   monitor other gates during production toolchanges, and return to the former
+   130/100-load and 180/150-unload values if cross-gate reliability regresses.
 9. Do not mask a mechanical filament-path fault with progressively larger
    homing distances, motor current, or protection thresholds.
 10. Use the Annex Belay hardware as Happy Hare's one-sided tension-feedback

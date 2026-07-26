@@ -236,15 +236,6 @@ Resolution and monitoring:
 
 ## Backlog
 
-- Tomorrow, run a supervised TradRack long-transport speed trial at
-  300 mm/s and 400 mm/s²; do not treat those values as production-validated.
-  Start from the current 130/100 mm/s² load and 180/150 mm/s² unload baseline,
-  test loading and unloading as separate variables, and use repeated moves on
-  known-reliable gates. Compare commanded gear travel with encoder travel and
-  inspect for missed pickup, step loss, filament grinding, spool/rewinder
-  overshoot, and gate-parking inconsistency. Restore the baseline immediately
-  if any of those appear, and persist the faster values only after repeatable
-  successful full-length cycles.
 - Evaluate a purge bucket/Blobifier workflow to purge most transition material
   off-print and retain only the minimum priming structure. Blobifier is
   currently disabled.
@@ -255,6 +246,14 @@ Resolution and monitoring:
 
 ## Recently completed
 
+- Completed a staged gate-2 TradRack transport trial with three full cycles at
+  each of four settings: the former baseline, 300/100, 300/200, and 350/300.
+  The calibrated 1-degree servo grip produced no slippage, the nearly full
+  Filamentalist spool remained controlled, and all twelve cycles completed
+  without a load, unload, encoder, sensor, or gate-parking warning. The
+  selected permanent long-load and long-unload setting is 350 mm/s at
+  300 mm/s². The standalone cycle dropped from about 65 to 49 seconds; monitor
+  the first production multicolor job because this trial covered gate 2 only.
 - Toolhead geometry, selector calibration, the successful crab print, Git
   repair, and knowledge reconciliation are recorded in `HISTORY.md`.
 - Hardened `autocommit.sh`: fail-fast execution, integrity and branch checks,

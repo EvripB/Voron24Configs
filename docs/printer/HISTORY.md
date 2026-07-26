@@ -113,6 +113,14 @@ identities remain approximate.
   sufficient free storage, and no logged SD-card error. The checkout is the
   leading cause rather than proven causation; large host I/O is now prohibited
   during active prints.
+- Completed twelve supervised gate-2 load/unload cycles while staging the
+  TradRack long-transport settings through the former baseline, 300/100,
+  300/200, and 350/300. With a nearly full Filamentalist spool and the
+  calibrated 1-degree servo grip, all cycles completed without a movement,
+  encoder, sensor, or parking fault. Adopted 350 mm/s at 300 mm/s² for both
+  long load and unload, reducing the observed standalone cycle from about
+  65 seconds to about 49 seconds; production validation remains scoped to
+  other gates and complete multicolor toolchanges.
 
 ## Superseded statements
 

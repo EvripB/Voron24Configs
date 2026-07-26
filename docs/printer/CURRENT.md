@@ -140,8 +140,8 @@ Current headline movement settings:
 
 | Operation | Speed | Acceleration |
 | --- | ---: | ---: |
-| Pull from spool | 130 mm/s | 100 mm/s² |
-| Long unload | 180 mm/s | 150 mm/s² |
+| Pull from spool | 350 mm/s | 300 mm/s² |
+| Long unload | 350 mm/s | 300 mm/s² |
 | Short move | 80 mm/s | 600 mm/s² |
 | Extruder load/unload | 16 mm/s | Happy Hare runtime default |
 | Synchronized load/unload | 18 mm/s | Happy Hare runtime default |
@@ -197,6 +197,15 @@ Read their live values from:
   and a 59.7-second average complete swap.
 - This validates the current T0/T1/T10 paths and start sequence. It does not
   validate every gate or every material.
+- **Runtime-validated, user-confirmed, 2026-07-26:** gate 2 completed twelve
+  supervised full load/unload cycles with the calibrated selector-servo
+  down/grip angle at 1 degree. The trial used three cycles each at the former
+  130/100-load and 180/150-unload baseline, 300/100, 300/200, and the selected
+  350 mm/s at 300 mm/s² final setting. Gate 2's nearly full Filamentalist spool
+  remained controlled, all encoder and toolhead sensing completed without a
+  warning, and the final setting reduced the observed standalone cycle from
+  about 65 seconds to about 49 seconds. This validates the new long-transport
+  setting on gate 2 only; monitor other gates during production toolchanges.
 - An earlier nonfatal unload encoder discrepancy remains something to monitor,
   but it did not interrupt the completed print.
 
