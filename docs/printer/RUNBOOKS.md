@@ -23,6 +23,33 @@ Use this first for diagnosis or when print state is active/unknown.
 
 Never use commands that print a credential-bearing remote URL.
 
+### Moonraker reachability from Codex
+
+Codex shell commands can run with isolated PID and network namespaces. Inside
+that sandbox, `127.0.0.1` refers to the sandbox rather than the Raspberry Pi
+host. A connection refusal from this isolated loopback does **not** show that
+Moonraker is stopped or unreachable from the printer host.
+
+For a current read-only check, run these from host context, outside the
+isolated Codex network namespace. If the execution layer requires approval,
+request it for the read-only host check.
+
+```bash
+systemctl is-active moonraker.service
+curl -sS --max-time 3 \
+  'http://127.0.0.1:7125/printer/objects/query?print_stats'
+```
+
+Use `systemctl status moonraker.service --no-pager -n 20` when service details
+are needed. The object query is read-only; do not substitute a G-code,
+restart, job, or other state-changing endpoint without explicit authorization.
+
+If host-context access is unavailable, inspect `logs/moonraker.log` for job
+events and `logs/klippy.log` for recent, advancing statistics. State that the
+endpoint could not be verified from the sandbox; do not call Moonraker
+unreachable merely because sandbox-local `127.0.0.1:7125` refused the
+connection.
+
 ## 2. Safe configuration change
 
 Preconditions: printer idle, exact requested change understood, and any needed

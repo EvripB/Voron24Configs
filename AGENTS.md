@@ -31,6 +31,12 @@ procedure, or superseded work. The files in
 - Establish whether a print is active before changing anything. If it is
   active or the state is unknown, remain read-only unless the owner explicitly
   authorizes a specific live action.
+- Codex commands can run inside isolated PID and network namespaces. In that
+  environment, `127.0.0.1` is the sandbox itself, not the Raspberry Pi host.
+  A refused sandbox-local connection to Moonraker on port 7125 is not evidence
+  that Moonraker is down. Query Moonraker read-only from host context when
+  available; otherwise use recent Moonraker and Klipper logs and report that
+  direct reachability is unverified. See `docs/printer/RUNBOOKS.md`.
 - Do not send printer G-code, mutate Moonraker state, restart services, run
   `FIRMWARE_RESTART`, reboot, update software, flash firmware, or change
   networking without explicit authorization.
