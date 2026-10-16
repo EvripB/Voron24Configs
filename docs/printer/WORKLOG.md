@@ -1,10 +1,42 @@
 # Active work
 
-Last updated: 2026-07-27
+Last updated: 2026-10-16
 
-An intermittent gate-10 transport and toolhead-reach fault is under
-investigation. The July 23 multicolor print remains the successful 89/89
+Gate-0 parking/pickup and intermittent gate-10/gate-11 transport faults are
+under investigation. The July 23 multicolor print remains the successful 89/89
 toolchange baseline.
+
+## Happy Hare v4 migration (2026-10-16)
+
+- Owner performed the Mainsail code update; the offered build had advanced
+  from v4.0.0-1537 to actual v4.1.0-15 (`ee30acdd`). Ran the upstream installer
+  with self-update and automatic service restart suppressed, then restored
+  reviewed v3 settings and translated calibration/maps/statistics.
+- Preserved ERB v2 USB pins, twelve commissioned gates, Belay tension feedback,
+  both Spider toolhead sensors, calibrated servo PWM behavior, Crossbow
+  approach/departure hooks and positions, and the Orca/tower workflow.
+- Corrected the external `MMU_ERB_V2` temperature sensor to MCU `unit0` and
+  disabled the duplicate installer-generated MCU temperature sensor.
+- Two offline mocked-controller initialization checks passed; independent
+  review checked configuration and preserved state. Two authorized host
+  startups reached ready without config warnings and loaded the original
+  selector offsets, 2020.8 mm Bowden lengths, 22.2702 gear rotation distance,
+  0.9752 encoder resolution and 11 mm detection length.
+- Startup recovered filament at the encoder, but both toolhead sensors were
+  clear. Current filament position is intermediate (`3`/`Unknown`), not
+  confirmed loaded or parked. Owner believes gate 11 contains transparent PETG.
+  Do not force a loaded/unloaded state merely to proceed.
+- Pre-upgrade recovery assets and the detailed migration handoff are local in
+  `../backups/`; they are private and outside this public repository.
+
+Pending commissioning, requiring specific hardware-motion authorization:
+
+- Reconcile gate-11 filament position and test supervised load/unload with
+  sensor/encoder evidence, then verify Crossbow routing.
+- Check gate 0's nearly empty spool parking/pickup and gates 10/11 transport.
+- Validate already-loaded single-tool startup skips the redundant gate check;
+  validate unloaded/different-tool starts and a small two-tool print.
+- Do not declare the transport faults fixed merely because the migration loads.
 
 ## Next
 
@@ -176,6 +208,26 @@ Pending while the printer is idle:
   [`HARDWARE_INVENTORY.md`](HARDWARE_INVENTORY.md).
 
 ## Monitor
+
+### Gate 0: filament retracts beyond pickup
+
+- Owner reports that gate 0's spool is nearly empty and that unloaded filament
+  retreated too far for the drive to pick it up again. The mechanism is enclosed
+  and the retreat timing was not observed. Light spool/rewinder behavior is a
+  hypothesis, not a confirmed cause. No diagnostic parking or spring changes
+  have been made; preserve full-spool operation when comparing behavior.
+
+### Gate 11: October 13 PETG print
+
+- `glastraki_PETG_3h36m.gcode` completed with eight MMU pauses totaling 17m40s.
+  Initial and later reloads had severe encoder movement shortfalls, alongside
+  four encoder clog/tangle detections and two tension-stuck FlowGuard trips.
+- An unload failed to clear the encoder during a planned pause. The final
+  unload reported success with 1940.8 mm commanded and only 3.9 mm measured;
+  that result is not proof of a clear path.
+- Investigate drive engagement, selector alignment, rewinder/spool drag, shared
+  Bowden restrictions and encoder sensing alongside the gate-10 investigation.
+  These tension trips are distinct from the older compression episode below.
 
 ### Intermittent gate-10 transport and toolhead reach
 

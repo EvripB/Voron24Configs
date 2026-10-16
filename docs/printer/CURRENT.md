@@ -1,6 +1,6 @@
 # Current printer state
 
-Last reconciled: 2026-07-27
+Last reconciled: 2026-10-16
 
 This file records stable current facts. Active configuration remains the
 implementation source of truth.
@@ -99,6 +99,24 @@ Implementation: [printer.cfg](../../printer.cfg) and
 
 ## TradRack and Happy Hare
 
+- **Runtime-validated (2026-10-16):** Happy Hare v4.1.0-15, commit
+  `ee30acdd46bb0d1f89d16f6e6c6c24ea991f5a37`, is installed through the
+  upstream installer. The controller/encoder are named `unit0`; configuration
+  now uses `mmu_hardware_unit0.cfg`, `mmu_parameters_unit0.cfg`, and
+  `mmu/macros/*.cfg`. Calibration, lane metadata, counters, and statistics were
+  translated into v4 state namespaces. No MCU firmware was flashed.
+- **Runtime-validated (2026-10-16):** Klipper and Moonraker reached ready
+  without configuration warnings. The first authorized v4 startup detected
+  filament through an encoder buzz, with both toolhead switches clear, and
+  retained T11/G11. Happy Hare reports intermediate position `3`/`Unknown`;
+  do not assume fully loaded or unloaded. Full transport, cutter, and print
+  validation remain pending in `WORKLOG.md`.
+- **Config-verified:** gate parking is `-48` mm in v4, preserving the old
+  v3 `+48` physical retraction with the reversed sign convention. Fast-load
+  and unload homing buffers remain 50 and 80 mm; gate homing maximum is 100 mm.
+- **Config-verified:** startup gate checks remain enabled. V4 skips the check
+  for a single-tool job when its requested initial tool is already confirmed
+  loaded; this behavior has been source-reviewed but not print-validated here.
 - **User-confirmed:** the TradRack has 14 physical lanes, but the enclosure can
   hold only 12 filaments.
 - **Config-verified:** exactly 12 gates are enabled: gates 0-11. Gates 12 and
@@ -145,14 +163,17 @@ Current headline movement settings:
 
 | Operation | Speed | Acceleration |
 | --- | ---: | ---: |
-| Pull from spool | 350 mm/s | 300 mm/s² |
-| Long unload | 350 mm/s | 300 mm/s² |
+| Pull from spool | 300 mm/s | 300 mm/s² |
+| Long unload | 300 mm/s | 300 mm/s² |
 | Short move | 80 mm/s | 600 mm/s² |
 | Extruder load/unload | 16 mm/s | Happy Hare runtime default |
 | Synchronized load/unload | 18 mm/s | Happy Hare runtime default |
 
 Other important current values:
 
+- V3 requested 350 mm/s for long transport but capped gear movement at
+  `gear_max_velocity: 300`. V4's 300 mm/s load/unload values preserve that
+  effective limit; this migration did not commission faster movement.
 - MMU gear run/hold current: 1.10 A / 0.20 A
 - Gear homing speed: 20 mm/s
 - Extruder homing speed: 18 mm/s
@@ -189,8 +210,8 @@ Selector offsets, encoder calibration, Bowden calibration, gate metadata, and
 statistics are intentionally not duplicated here because they are mutable.
 Read their live values from:
 
-- [mmu_hardware.cfg](../../mmu/base/mmu_hardware.cfg)
-- [mmu_parameters.cfg](../../mmu/base/mmu_parameters.cfg)
+- [mmu_hardware_unit0.cfg](../../mmu/base/mmu_hardware_unit0.cfg)
+- [mmu_parameters_unit0.cfg](../../mmu/base/mmu_parameters_unit0.cfg)
 - [mmu_macro_vars.cfg](../../mmu/base/mmu_macro_vars.cfg)
 - [mmu_vars.cfg](../../mmu/mmu_vars.cfg)
 

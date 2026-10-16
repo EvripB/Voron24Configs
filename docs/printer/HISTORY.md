@@ -135,6 +135,25 @@ identities remain approximate.
   through the WW-BMG entrance plus an approximately 14 mm ID2/OD4 segment
   between the extruder and hotend.
 
+## October 16, 2026
+
+- Migrated from Happy Hare v3.4.2-22 to actual v4.1.0-15 (`ee30acdd`) after
+  the owner's UI update. Verified local pre-upgrade archives, captured the
+  installed source, ran the upstream installer, and restored calibrated
+  hardware, cutter extensions, lane maps, statistics and maintenance counters
+  using v4 unit/encoder namespaces.
+- Converted gate parking +48 to -48 under v4's reversed sign convention.
+  Configured long transport at 300 mm/s to preserve v3's effective gear
+  velocity cap, with the original 300 mm/s² acceleration.
+- Corrected the separate ERB temperature display's MCU reference and disabled
+  the generated duplicate sensor. Two offline mocked-controller initialization
+  checks and two authorized real startups passed. Klipper and Moonraker are
+  ready, without configuration warnings; original calibration survived restart.
+- Startup recovery detected filament through encoder movement with both
+  toolhead switches clear. Gate 11 remains selected in intermediate filament
+  position 3/Unknown. No full load/unload, printer homing, cutter stroke or print
+  test was performed as part of commissioning; transport faults remain open.
+
 ## Superseded statements
 
 - Current nozzle is not unknown: configuration is 0.4 mm.

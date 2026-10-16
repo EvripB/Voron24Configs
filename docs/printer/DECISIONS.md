@@ -118,3 +118,10 @@ These are current choices, not a list of every experiment.
     not proven causation; reconsider the threshold or a sync-disabled
     comparison only if the fault becomes reproducible with the extruder and
     filament path confirmed secure.
+29. During the 2026-10-16 Happy Hare v4 migration, preserve the old effective
+    transport limit with 300 mm/s long load and unload. The prior 350 mm/s
+    requests were constrained by v3's 300 mm/s gear velocity limit. Preserve
+    300 mm/s² acceleration and do not mix faster-motion tuning into migration.
+30. Keep the existing named ERB temperature display in `printer.cfg`, pointing
+    it at v4 MCU `unit0`; disable generated MCU-temperature sensors in the
+    installer so the same internal ADC is not configured twice.
