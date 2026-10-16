@@ -36,6 +36,11 @@ toolchange baseline.
   cleared the obstruction. Subsequently authorized physical-endstop homing
   passed, restoring ready/homed/gate 0/unloaded state with heaters off.
   Automatic recovery and broader obstruction sensitivity remain unvalidated.
+- Owner-requested `MMU_SELECT GATE=2` then `MMU_CHECK_GATE GATE=2`
+  passed on v4. Filament was detected and gate 2 remained available; encoder
+  unload homing completed without warnings. Ended ready, homed, selected T2/G2
+  and unloaded (`filament_pos=0`). This checks gate pickup/parking only;
+  full Bowden transport, toolhead sensors and cutting remain untested on v4.
 - Pre-upgrade recovery assets and the detailed migration handoff are local in
   `../backups/`; they are private and outside this public repository.
 
