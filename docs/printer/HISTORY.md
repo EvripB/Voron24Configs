@@ -165,8 +165,9 @@ identities remain approximate.
 - A subsequent single authorized selector move toward gate 11, with filament
   deliberately protruding from gate 5, produced a selector-touch blockage
   error. The selector was left stationary with gate unknown and homing invalid;
-  physical-stop confirmation, obstruction removal and authorized re-homing
-  remain pending. No retry or automatic-clearing test was performed.
+  the owner then confirmed a clean physical stop and removed the obstruction.
+  Authorized physical-endstop re-homing restored ready/homed/gate 0/unloaded
+  state, with heaters off. No automatic-clearing test was performed.
 
 ## Superseded statements
 

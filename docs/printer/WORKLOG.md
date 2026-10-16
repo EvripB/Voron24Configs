@@ -32,10 +32,10 @@ toolchange baseline.
   Starting SGTHRS is 75, at 80 mm/s and 1200 mm/s². A subsequent authorized
   gate-0-to-11 move with owner-positioned protruding filament at gate 5 reported
   the expected selector-touch blockage error. Runtime invalidated selector
-  homing and gate selection; no follow-up movement was sent. Await owner
-  confirmation that it stopped correctly and the obstruction is removed,
-  then authorized physical-endstop homing. Automatic recovery and broader
-  obstruction sensitivity remain unvalidated.
+  homing and gate selection. The owner confirmed it stopped correctly and
+  cleared the obstruction. Subsequently authorized physical-endstop homing
+  passed, restoring ready/homed/gate 0/unloaded state with heaters off.
+  Automatic recovery and broader obstruction sensitivity remain unvalidated.
 - Pre-upgrade recovery assets and the detailed migration handoff are local in
   `../backups/`; they are private and outside this public repository.
 

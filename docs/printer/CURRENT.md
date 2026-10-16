@@ -121,9 +121,9 @@ Implementation: [printer.cfg](../../printer.cfg) and
   at gate 0. No blockage warnings occurred during clear-path travel. A later
   owner-authorized move from gate 0 toward gate 11 with filament deliberately
   protruding from gate 5 produced the expected selector-touch blockage error
-  and invalidated selector homing (`gate=-1`, `is_homed=False`). No further
-  motion was sent. Owner confirmation of the physical stop and obstruction
-  removal is pending; re-home only after the path is confirmed clear.
+  and invalidated selector homing (`gate=-1`, `is_homed=False`). The owner
+  confirmed a clean stop and removed the obstruction. Authorized physical
+  endstop re-homing then passed, restoring ready/homed/gate 0/unloaded state.
   This is one positive detection at SGTHRS 75, not a full sensitivity calibration
   or validation of automatic recovery.
 - **Config-verified:** gate parking is `-48` mm in v4, preserving the old

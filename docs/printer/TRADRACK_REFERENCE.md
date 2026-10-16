@@ -246,8 +246,9 @@ Selector DIAG `gpio19` is enabled for Happy Hare selector-touch as of
 2026-10-16; physical homing still uses `gpio24`. Gear DIAG/touch remains
 unconfigured. Clear-path selector movement passed; a deliberate gate-5
 obstruction also produced the expected blockage error at SGTHRS 75.
-Physical-stop confirmation and post-test re-homing are pending; broader
-sensitivity and automatic recovery have not been validated.
+The owner confirmed a clean physical stop and cleared the test obstruction;
+authorized re-homing restored gate 0 unloaded. Broader sensitivity and
+automatic recovery have not been validated.
 
 ### Twelve-position IO bank
 
