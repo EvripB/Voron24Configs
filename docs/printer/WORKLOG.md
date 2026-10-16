@@ -52,6 +52,26 @@ toolchange baseline.
   unloaded, with heaters off; no post-fix full load test was sent. Current
   installer choices already disable the storage buffer, but the upstream
   template omits the field; preserve the explicit override after regeneration.
+- Completed a broader read-only effective-settings audit after the storage-buffer
+  miss: accounted for 207 old MMU parameters and inventoried 2,581 old effective
+  configuration fields. An independent reviewer found no additional active
+  parameter mismatch beyond the preload profile below. Hardware/pins, parsed
+  macro variables, cutter hooks and initial saved calibration/metadata match.
+  Retired global v3 motion caps and upstream LED/UI behavior are separate
+  architectural changes, not identical behavior.
+- **Pending correction:** v3 encoder preload used normal gate pickup100 mm,
+  parking48 mm retraction and preload_attempts5. V4 actually inherits encoder
+  when gate_preload_endstop is blank and uses its own profile300/-10/2. The
+  earlier claim that its retry difference was inactive was incorrect. Proposed
+  profile100/-48/5 and installer choices passed offline initialization; staged
+  outside active configuration, awaiting owner approval/restart.
+- **Pending state restoration:** gate1's original eSun RED / ABS+ / f24343e3 /
+  260 C metadata survived migration but was cleared by v4 after a failed pickup
+  marked it empty at21:05. V3 retained metadata on an availability change.
+  Current gate1 identity is blank and temperature200 C. Proposed restoration
+  is prepared but unsent; future pickup failures can clear it again because
+  this is upstream behavior, not a one-time migration loss. Detailed audit
+  artifacts and independent review are private under `../backups/`.
 - Pre-upgrade recovery assets and the detailed migration handoff are local in
   `../backups/`; they are private and outside this public repository.
 

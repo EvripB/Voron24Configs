@@ -129,6 +129,15 @@ Implementation: [printer.cfg](../../printer.cfg) and
 - **Config-verified:** gate parking is `-48` mm in v4, preserving the old
   v3 `+48` physical retraction with the reversed sign convention. Fast-load
   and unload homing buffers remain 50 and 80 mm; gate homing maximum is 100 mm.
+- **Audit finding (2026-10-16), unresolved:** `MMU_PRELOAD` currently uses
+  encoder homing300 mm, parking-10 mm and attempts2. V3's encoder-only preload
+  instead used the normal gate profile100 mm / 48 mm retraction with attempts5.
+  A matching v4 profile100/-48/5 is staged but not applied. Normal gate checks
+  and full load/unload use a separate profile.
+- **Runtime-verified (2026-10-16):** gate1 metadata was cleared after a failed
+  pickup under v4, despite having survived migration. Its original eSun RED /
+  ABS+ / f24343e3 / 260 C values are preserved in backup; restoration is pending.
+  V4's empty-gate transition can clear attributes again on a future pickup fault.
 - **Config-verified:** startup gate checks remain enabled. V4 skips the check
   for a single-tool job when its requested initial tool is already confirmed
   loaded; this behavior has been source-reviewed but not print-validated here.

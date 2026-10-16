@@ -177,6 +177,15 @@ identities remain approximate.
   No post-correction full transport test was run. Installer regeneration needs
   the explicit override preserved because the current upstream template omits it.
 
+- A subsequent full effective-settings audit accounted for207 old MMU parameters
+  and inventoried2,581 old effective fields. Independent review confirmed a
+  remaining encoder-preload mismatch: v3 effective100/-48/5 versus current
+  v4 300/-10/2. Matching proposed configuration passed offline checks but was
+  not applied. Gate1 metadata was preserved initially and later cleared by
+  upstream v4 empty-gate behavior after a pickup failure; restoration is pending.
+  Old global movement caps are retired upstream even though current normal
+  move settings preserve the former limits. No printer state changed in this audit.
+
 ## Superseded statements
 
 - Current nozzle is not unknown: configuration is 0.4 mm.
