@@ -118,8 +118,14 @@ Implementation: [printer.cfg](../../printer.cfg) and
   `driver_SGTHRS: 75`, touch speed 80 mm/s and acceleration 1200 mm/s².
   Authorized physical-endstop homing and 24 unloaded lane changes across
   gates 0-11 passed, including both directions and full-width travel, ending
-  at gate 0. No blockage warnings occurred. Actual obstruction detection and
-  recovery remain untested; 75 is not yet a calibrated protection threshold.
+  at gate 0. No blockage warnings occurred during clear-path travel. A later
+  owner-authorized move from gate 0 toward gate 11 with filament deliberately
+  protruding from gate 5 produced the expected selector-touch blockage error
+  and invalidated selector homing (`gate=-1`, `is_homed=False`). No further
+  motion was sent. Owner confirmation of the physical stop and obstruction
+  removal is pending; re-home only after the path is confirmed clear.
+  This is one positive detection at SGTHRS 75, not a full sensitivity calibration
+  or validation of automatic recovery.
 - **Config-verified:** gate parking is `-48` mm in v4, preserving the old
   v3 `+48` physical retraction with the reversed sign convention. Fast-load
   and unload homing buffers remain 50 and 80 mm; gate homing maximum is 100 mm.

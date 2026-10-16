@@ -29,9 +29,13 @@ toolchange baseline.
 - Enabled selector-touch at the owner's request, retaining physical homing.
   Offline startup and real restart passed; physical-endstop homing and 24
   unloaded lane changes across all gates 0-11 passed without blockage warnings.
-  Starting SGTHRS is 75, at 80 mm/s and 1200 mm/s². Actual obstruction detection
-  and automatic recovery have not been tested. Keep this commissioning limit
-  explicit; a later controlled obstruction test needs specific authorization.
+  Starting SGTHRS is 75, at 80 mm/s and 1200 mm/s². A subsequent authorized
+  gate-0-to-11 move with owner-positioned protruding filament at gate 5 reported
+  the expected selector-touch blockage error. Runtime invalidated selector
+  homing and gate selection; no follow-up movement was sent. Await owner
+  confirmation that it stopped correctly and the obstruction is removed,
+  then authorized physical-endstop homing. Automatic recovery and broader
+  obstruction sensitivity remain unvalidated.
 - Pre-upgrade recovery assets and the detailed migration handoff are local in
   `../backups/`; they are private and outside this public repository.
 

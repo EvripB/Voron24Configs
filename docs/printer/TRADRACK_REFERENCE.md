@@ -244,8 +244,10 @@ silkscreen/pinout and verify ground and supply before connecting a device.
 The active configuration uses both motors and their UART connections.
 Selector DIAG `gpio19` is enabled for Happy Hare selector-touch as of
 2026-10-16; physical homing still uses `gpio24`. Gear DIAG/touch remains
-unconfigured. Clear-path selector movement passed, but actual obstruction
-sensitivity and recovery have not been validated.
+unconfigured. Clear-path selector movement passed; a deliberate gate-5
+obstruction also produced the expected blockage error at SGTHRS 75.
+Physical-stop confirmation and post-test re-homing are pending; broader
+sensitivity and automatic recovery have not been validated.
 
 ### Twelve-position IO bank
 
