@@ -40,7 +40,8 @@ toolchange baseline.
   passed on v4. Filament was detected and gate 2 remained available; encoder
   unload homing completed without warnings. Ended ready, homed, selected T2/G2
   and unloaded (`filament_pos=0`). This checks gate pickup/parking only;
-  full Bowden transport, toolhead sensors and cutting remain untested on v4.
+  full-path testing had not yet occurred at that stage (later owner trials
+  are recorded below).
 - Found a missed effective v4 vendor default during owner load tests:
   `filament_buffer=True` selected 150 mm/s for gate 2 (available-from-buffer),
   while gate 1 later used 300 mm/s after failed pickup and successful gate
@@ -75,6 +76,10 @@ toolchange baseline.
   failures can clear metadata again because this is upstream behavior, not a
   one-time migration loss. Detailed audit
   artifacts and independent review are private under `../backups/`.
+- **Owner-operated trials:** gate2 loaded at21:02 and unloaded with a cut at
+  21:04; gate1 initially failed pickup at21:05, then loaded at21:06 after
+  re-homing/gate checks and unloaded with a cut at21:09. These were before the
+  final buffer/preload fixes. No post-fix full cycle or print test is recorded.
 - Pre-upgrade recovery assets and the detailed migration handoff are local in
   `../backups/`; they are private and outside this public repository.
 

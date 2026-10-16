@@ -1,6 +1,6 @@
 # Printer knowledge index
 
-Last reconciled: 2026-07-26
+Last reconciled: 2026-10-16
 
 This is the authoritative, compact knowledge set for the printer. It was
 distilled from the ChatGPT handoff candidates, this Codex session, active

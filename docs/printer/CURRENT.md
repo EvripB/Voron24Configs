@@ -249,6 +249,13 @@ Read their live values from:
 
 ## Current MMU validation
 
+- **Runtime-validated, owner-operated (2026-10-16):** manual full loads and
+  unloads completed on gates 2 and 1 under v4, with encoder/toolhead sensing
+  and Crossbow cuts recorded in the log. Gate 1 initially failed pickup and
+  succeeded after re-homing and gate checks. These trials preceded the final
+  storage-buffer and preload corrections, so they are not post-fix validation
+  or evidence that the intermittent transport faults are resolved.
+
 - **Runtime-validated, user-confirmed, 2026-07-23:** the three-color articulated
   hermit-crab print completed.
 - Happy Hare recorded 89/89 toolchange operations, zero pauses during the job,

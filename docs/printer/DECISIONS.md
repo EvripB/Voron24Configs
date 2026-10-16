@@ -1,6 +1,6 @@
 # Durable decisions
 
-Last reconciled: 2026-07-26
+Last reconciled: 2026-10-16
 
 These are current choices, not a list of every experiment.
 

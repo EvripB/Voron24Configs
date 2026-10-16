@@ -150,9 +150,10 @@ identities remain approximate.
   checks and two authorized real startups passed. Klipper and Moonraker are
   ready, without configuration warnings; original calibration survived restart.
 - Startup recovery detected filament through encoder movement with both
-  toolhead switches clear. Gate 11 remains selected in intermediate filament
-  position 3/Unknown. No full load/unload, printer homing, cutter stroke or print
-  test was performed as part of commissioning; transport faults remain open.
+  toolhead switches clear. At that startup stage gate11 was selected at
+  intermediate filament position3/Unknown; full-path tests had not yet occurred.
+  Subsequent recovery and owner trials are recorded below; transport faults
+  remain open.
 
 - Owner subsequently manually unloaded gate 11, homed TradRack and ran recovery;
   live state confirmed unloaded. Enabled selector-touch through upstream
@@ -160,7 +161,8 @@ identities remain approximate.
   speed and 1200 mm/s² acceleration, preserving physical homing and offsets.
   Offline initialization, real startup, physical-endstop homing and 24
   unloaded lane changes over gates 0-11 passed with no blockage warnings.
-  Ended at gate 0. Actual obstruction detection/recovery remains untested.
+  Ended at gate0. Obstruction detection had not yet been tested at that stage;
+  the subsequent successful controlled test is recorded below.
 
 - A subsequent single authorized selector move toward gate 11, with filament
   deliberately protruding from gate 5, produced a selector-touch blockage
@@ -192,6 +194,11 @@ identities remain approximate.
   without warnings and verified both corrections plus buffer0, loading300/300,
   Belay/sync/touch enabled. Ended homed at gate1 unloaded, with both heaters off.
   No physical preload/full-load test was performed during this correction.
+
+- Owner-operated full load/unload trials completed on gates2 and1, including
+  two logged Crossbow cuts. Gate1 initially failed pickup, then succeeded after
+  re-homing/gate checks. Trials preceded final buffer/preload corrections;
+  post-fix transport, same-tool print startup and multicolor print tests remain.
 
 ## Superseded statements
 

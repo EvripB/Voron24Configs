@@ -69,6 +69,35 @@ restart separately authorized.
 Do not create `.cfg` backup copies where a wildcard include might load them.
 Do not use destructive Git rollback to discard the owner's work.
 
+### Happy Hare v4 regeneration and migration checks
+
+Use the pre-upgrade effective settings and saved calibration as the baseline,
+then compare the final generated configuration and runtime results. Installer
+choices alone are insufficient: omitted settings can inherit vendor defaults,
+and initialization can replace blank values after config parsing.
+
+- For the current FV3 setup, preserve explicit `filament_buffer: 0` in
+  `[mmu_unit unit0]`. The installed upstream template currently omits this
+  attribute despite the installer storage-buffer choice being off. Preserve
+  `buffer: unit0`, which associates the separate Belay sync-feedback mechanism.
+- Preserve the effective encoder preload profile: pickup100 mm, parking-48 mm,
+  attempts5. Blank `gate_preload_endstop` inherits encoder; it does not mean
+  sensorless preload. V3 ignored its separate preload300/-10 fields on this
+  encoder-only path and used normal gate pickup/parking instead.
+- Verify resolved pins, currents, PWM limits, saved servo/selector/gear/encoder
+  calibration, cutter geometry/hooks and stage-specific movement profiles.
+  Compare parsed macro variables, not quoting or formatting alone.
+- Keep installer choices synchronized. Use an offline mocked-MCU startup to
+  inspect post-initialization defaults before seeking restart authorization;
+  afterward verify the loaded configuration, warnings, sensors and saved state.
+- A v4 failed pickup that marks a gate empty may clear its filament identity
+  and temperature. Check metadata after recovery. Restore known values using
+  the supported `MMU_GATE_MAP` command only with authorization; do not hand-edit
+  generated `mmu_vars.cfg` or assume a successful gate check restores identity.
+- Configuration equivalence does not validate hardware behavior. Keep physical
+  load/unload/cutter/print checks separate, and do not treat prior v3 global
+  speed caps as still protecting arbitrary v4 manual moves.
+
 ## 3. MMU load, grip, or slippage diagnosis
 
 Preconditions depend on the test:
