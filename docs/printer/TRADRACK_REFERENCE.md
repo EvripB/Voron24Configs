@@ -241,9 +241,11 @@ silkscreen/pinout and verify ground and supply before connecting a device.
 | UART | `gpio11` | `gpio17` |
 | Diagnostic | `gpio13` | `gpio19` |
 
-The active configuration uses both motors and their UART connections. Their
-diagnostic pins are aliased but the optional StallGuard/touch configuration is
-commented out.
+The active configuration uses both motors and their UART connections.
+Selector DIAG `gpio19` is enabled for Happy Hare selector-touch as of
+2026-10-16; physical homing still uses `gpio24`. Gear DIAG/touch remains
+unconfigured. Clear-path selector movement passed, but actual obstruction
+sensitivity and recovery have not been validated.
 
 ### Twelve-position IO bank
 

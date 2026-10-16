@@ -125,3 +125,9 @@ These are current choices, not a list of every experiment.
 30. Keep the existing named ERB temperature display in `printer.cfg`, pointing
     it at v4 MCU `unit0`; disable generated MCU-temperature sensors in the
     installer so the same internal ADC is not configured twice.
+31. Use upstream selector-touch for the owner's reported protruding-filament
+    obstructions. Keep the physical home switch and existing selector offsets;
+    use ERB v2 onboard selector DIAG gpio19 as an additional named endstop.
+    Keep installer choices synchronized so regeneration retains the feature.
+    Clear-path success does not establish obstruction sensitivity or guarantee
+    recovery: another lane's protruding filament can require manual clearing.

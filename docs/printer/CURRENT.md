@@ -108,9 +108,18 @@ Implementation: [printer.cfg](../../printer.cfg) and
 - **Runtime-validated (2026-10-16):** Klipper and Moonraker reached ready
   without configuration warnings. The first authorized v4 startup detected
   filament through an encoder buzz, with both toolhead switches clear, and
-  retained T11/G11. Happy Hare reports intermediate position `3`/`Unknown`;
-  do not assume fully loaded or unloaded. Full transport, cutter, and print
+  retained T11/G11 at intermediate position `3`/`Unknown`. The owner later
+  manually unloaded gate 11, homed TradRack and ran recovery. Subsequent live
+  checks confirm unloaded position `0`. Full transport, cutter, and print
   validation remain pending in `WORKLOG.md`.
+- **Runtime-validated (2026-10-16):** selector-touch is enabled using ERB v2
+  onboard selector DIAG `unit0:gpio19` and named endstop `mmu_sel_touch`.
+  Physical homing remains on `^unit0:gpio24`. Starting sensitivity is
+  `driver_SGTHRS: 75`, touch speed 80 mm/s and acceleration 1200 mm/s².
+  Authorized physical-endstop homing and 24 unloaded lane changes across
+  gates 0-11 passed, including both directions and full-width travel, ending
+  at gate 0. No blockage warnings occurred. Actual obstruction detection and
+  recovery remain untested; 75 is not yet a calibrated protection threshold.
 - **Config-verified:** gate parking is `-48` mm in v4, preserving the old
   v3 `+48` physical retraction with the reversed sign convention. Fast-load
   and unload homing buffers remain 50 and 80 mm; gate homing maximum is 100 mm.

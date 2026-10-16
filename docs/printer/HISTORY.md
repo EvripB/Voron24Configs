@@ -154,6 +154,14 @@ identities remain approximate.
   position 3/Unknown. No full load/unload, printer homing, cutter stroke or print
   test was performed as part of commissioning; transport faults remain open.
 
+- Owner subsequently manually unloaded gate 11, homed TradRack and ran recovery;
+  live state confirmed unloaded. Enabled selector-touch through upstream
+  configuration with onboard ERB selector DIAG gpio19, SGTHRS 75, 80 mm/s touch
+  speed and 1200 mm/s² acceleration, preserving physical homing and offsets.
+  Offline initialization, real startup, physical-endstop homing and 24
+  unloaded lane changes over gates 0-11 passed with no blockage warnings.
+  Ended at gate 0. Actual obstruction detection/recovery remains untested.
+
 ## Superseded statements
 
 - Current nozzle is not unknown: configuration is 0.4 mm.

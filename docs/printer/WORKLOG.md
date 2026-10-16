@@ -22,17 +22,23 @@ toolchange baseline.
   startups reached ready without config warnings and loaded the original
   selector offsets, 2020.8 mm Bowden lengths, 22.2702 gear rotation distance,
   0.9752 encoder resolution and 11 mm detection length.
-- Startup recovered filament at the encoder, but both toolhead sensors were
-  clear. Current filament position is intermediate (`3`/`Unknown`), not
-  confirmed loaded or parked. Owner believes gate 11 contains transparent PETG.
-  Do not force a loaded/unloaded state merely to proceed.
+- Initial startup recovered filament at the encoder, with both toolhead
+  sensors clear and position intermediate (`3`/`Unknown`). The owner then
+  manually unloaded gate 11, homed TradRack and ran recovery. Later live
+  checks confirm filament unloaded (`0`); transport validation is still open.
+- Enabled selector-touch at the owner's request, retaining physical homing.
+  Offline startup and real restart passed; physical-endstop homing and 24
+  unloaded lane changes across all gates 0-11 passed without blockage warnings.
+  Starting SGTHRS is 75, at 80 mm/s and 1200 mm/s². Actual obstruction detection
+  and automatic recovery have not been tested. Keep this commissioning limit
+  explicit; a later controlled obstruction test needs specific authorization.
 - Pre-upgrade recovery assets and the detailed migration handoff are local in
   `../backups/`; they are private and outside this public repository.
 
 Pending commissioning, requiring specific hardware-motion authorization:
 
-- Reconcile gate-11 filament position and test supervised load/unload with
-  sensor/encoder evidence, then verify Crossbow routing.
+- Test supervised gate-11 load/unload with sensor/encoder evidence, then
+  verify Crossbow routing; manual filament-state recovery is complete.
 - Check gate 0's nearly empty spool parking/pickup and gates 10/11 transport.
 - Validate already-loaded single-tool startup skips the redundant gate check;
   validate unloaded/different-tool starts and a small two-tool print.
