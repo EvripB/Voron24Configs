@@ -6,6 +6,20 @@ This is a read-only snapshot of software and host-specific state that affects
 the printer. It complements the active `.cfg` repository; it is not a request
 to update or reinstall anything.
 
+## October 16 recovery addendum
+
+This file's detailed inventory below is the July24 historical snapshot. The
+current Happy Hare is v4.1.0-15, commit
+`ee30acdd46bb0d1f89d16f6e6c6c24ea991f5a37`; the former v3 revision in the table
+must not be used with today's restored v4 configuration. Klipper remains at
+`644cda5ecaa39d0dcf797624c19d5425cb8121ec`. CURRENT.md and the updated rebuild
+guide describe current MMU namespaces and migration corrections.
+
+The tracked Talking Voron scripts/service, Wi-Fi watchdog scripts/units, and
+Linux host-MCU build configuration were compared with the live files and still
+match. This verifies those source snapshots, not compatibility with Debian13.
+Encrypted off-device backup and fresh-image restore rehearsal remain unverified.
+
 ## Platform
 
 | Item | Audited value |

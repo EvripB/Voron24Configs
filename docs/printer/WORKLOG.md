@@ -190,6 +190,13 @@ Pending commissioning, requiring specific hardware-motion authorization:
   layer as a reason to increase either the base or first-layer flow ratio.
 
 ### 5. Complete and validate the Raspberry Pi recovery plan
+- **Readiness review (2026-10-16):** custom Talking Voron/watchdog/service and
+  Linux host-MCU build snapshots match live files. Updated the rebuild guide's
+  stale Happy Hare v3 pin to the installed v4 commit and documented links-only
+  restoration, startup-motion authorization, and Debian13 rehearsal needs.
+  Full encrypted off-device backup and spare-media restoration remain unverified;
+  old Klipper/Piper compatibility with the new Python must be tested.
+
 
 Completed documentation:
 

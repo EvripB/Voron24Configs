@@ -1,6 +1,6 @@
 # Raspberry Pi rebuild guide
 
-Last reconciled: 2026-07-24
+Last reconciled: 2026-10-16
 
 This guide rebuilds the current printer host from a fresh SD card while
 preserving the existing Spider and TradRack-controller firmware. It was built
@@ -33,6 +33,40 @@ first. Their audited revisions are rollback evidence if a compatibility
 problem appears; do not automatically downgrade a healthy new base. Klipper
 and Happy Hare are pinned during initial recovery because they directly touch
 unchanged MCU firmware and the restored MMU configuration.
+
+## Debian 13 migration readiness (2026-10-16)
+
+The custom source inventory exists, but no fresh-image restoration has been
+rehearsed. July inventory versions are historical; use CURRENT.md and the
+October Happy Hare backup/audit packages for the v4 configuration. At this
+check the saved Talking Voron, Wi-Fi watchdog, systemd units and Linux host-MCU
+build configuration matched their live counterparts.
+
+Before migrating:
+
+1. Refresh exact repository revisions, MCU versions, extension links, service
+   units, package/Python requirements and network/audio/camera dependencies.
+2. Finish and verify an encrypted private backup on another device, including
+   a consistent Moonraker database, network profiles, authentication recovery,
+   G-code/uploads as desired, and current Happy Hare saved state. Local backups
+   on the same SD card do not protect against loss of that card.
+3. Ensure the latest configuration/docs commits are preserved off-device.
+   On October16 nine local commits were ahead of the locally recorded upstream;
+   publishing was held at the owner's request.
+4. Install a supported Raspberry Pi4 image on spare media and recreate the
+   services there. Keep the original card intact as the rollback path; preserve
+   physical MCU firmware until a host compatibility decision is tested.
+5. Recreate Python virtual environments for the new OS. Test old Klipper host
+   compatibility with the target Python version; a matching commit alone does
+   not prove it will run on Debian13. Test Piper installation, voice/audio,
+   Moonraker's database restore, Crowsnest and Happy Hare's module links.
+6. Perform controlled physical-MCU/startup validation only with authorization,
+   then supervised movement/print checks before replacing the production card.
+
+Do not treat a new OS image's default Klipper version as automatically compatible
+with existing board firmware. An OS migration does not inherently require
+flashing Spider/ERB, but retaining the old firmware depends on a working,
+compatible host installation on the new OS.
 
 ## Part A — prepare before a failure
 
@@ -248,20 +282,22 @@ Clone and select the audited Happy Hare revision:
 
 ```bash
 git clone https://github.com/moggieuk/Happy-Hare.git /home/pi/Happy-Hare
-git -C /home/pi/Happy-Hare switch --detach a880ac0adccf532cf98a20567c47e10efdee5576
+git -C /home/pi/Happy-Hare switch --detach ee30acdd46bb0d1f89d16f6e6c6c24ea991f5a37
 ```
 
 Because the tracked `mmu` configuration is already restored, use Happy Hare's
 safe reinstall path. Skip its network self-update and service restart during
-the staged recovery:
+the staged recovery. With today's v4 configuration already restored, copy its
+installer choices and restore links only, avoiding configuration regeneration:
 
 ```bash
+cp /home/pi/printer_data/config/mmu/.mmu_config /home/pi/Happy-Hare/.mmu_config
 cd /home/pi/Happy-Hare
-./install.sh -z -s
+TERM=xterm ./install.sh -f -z -s
 ```
 
-This should recreate the Klipper modules, Moonraker component, and absolute
-configuration symlinks. Then inspect:
+This restores Klipper module and Moonraker component links. Restored configuration
+symlinks must resolve into the pinned Happy Hare checkout. Then inspect:
 
 ```bash
 git -C /home/pi/printer_data/config status --short
@@ -458,11 +494,13 @@ Verify:
 Start Moonraker and confirm its database and file roots load. Klipper may
 correctly report missing physical MCUs until they are connected.
 
-### 3. Connect controllers without motion
+### 3. Connect controllers with startup-motion precautions
 
 1. Power down before reconnecting USB/power to the Spider and TradRack
    controller.
-2. Power up and start Klipper.
+2. Obtain explicit authorization before powering up and starting Klipper with
+   the MMU connected: Happy Hare startup recovery can move the servo, buzz the
+   gear drive and reselect a gate. Keep the mechanism clear and supervised.
 3. Confirm all three MCU version/protocol reports match the intended recovery
    generation.
 4. Confirm Happy Hare loads and inspect its sensors/state without sending
