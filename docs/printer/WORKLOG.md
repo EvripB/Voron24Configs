@@ -41,6 +41,17 @@ toolchange baseline.
   unload homing completed without warnings. Ended ready, homed, selected T2/G2
   and unloaded (`filament_pos=0`). This checks gate pickup/parking only;
   full Bowden transport, toolhead sensors and cutting remain untested on v4.
+- Found a missed effective v4 vendor default during owner load tests:
+  `filament_buffer=True` selected 150 mm/s for gate 2 (available-from-buffer),
+  while gate 1 later used 300 mm/s after failed pickup and successful gate
+  checks changed its availability state. Wrote explicit `filament_buffer: 0`
+  for FV3 rewinders. Offline initialization and four speed-resolution checks
+  passed at 300 mm/s and 300 mm/s²; Belay/sync/selector-touch remain enabled.
+  Authorized restart completed: runtime confirms buffer=0, loading300/accel300,
+  enabled Belay/sync/touch and no configuration warnings. Ended homed at gate1,
+  unloaded, with heaters off; no post-fix full load test was sent. Current
+  installer choices already disable the storage buffer, but the upstream
+  template omits the field; preserve the explicit override after regeneration.
 - Pre-upgrade recovery assets and the detailed migration handoff are local in
   `../backups/`; they are private and outside this public repository.
 

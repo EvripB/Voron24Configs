@@ -142,8 +142,16 @@ Implementation: [printer.cfg](../../printer.cfg) and
   RP2040 MCU and is connected over USB.
 - **User-confirmed, config-verified:** twelve Filamentalist FV3 passive
   rewinders provide spool handling, one for each commissioned gate, inside the
-  actively heated filament enclosure. Happy Hare is correctly configured with
-  no separate filament-storage buffer (`has_filament_buffer: 0`).
+  actively heated filament enclosure. These rewinders are not a separate
+  filament-storage buffer. V4 unexpectedly inherited the TradRack vendor
+  default `filament_buffer=True`, selecting 150 mm/s loading for gates marked
+  available-from-buffer. Explicit `filament_buffer: 0` under
+  `[mmu_unit unit0]` is now runtime-verified after authorized restart, with
+  spool loading at 300 mm/s and 300 mm/s² regardless of gate availability state
+  (speed resolution checked offline). No post-correction full load was run.
+  Belay feedback remains assigned separately via `buffer: unit0`. The current
+  installer template omits this field, so preserve/reapply the explicit
+  override after configuration regeneration.
 - **User-confirmed, config-verified:** the Annex Belay mechanism supplies the
   one-sided tension input on ERB `gpio12`. Happy Hare—not Annex's standalone
   Belay Klipper module—owns synchronization and FlowGuard. The active

@@ -169,6 +169,14 @@ identities remain approximate.
   Authorized physical-endstop re-homing restored ready/homed/gate 0/unloaded
   state, with heaters off. No automatic-clearing test was performed.
 
+- Corrected a missed v4 TradRack vendor default: explicit `filament_buffer: 0`
+  restores spool-loading speed regardless of gate availability state, while
+  retaining Belay sync feedback. Four offline speed-resolution checks passed
+  at 300 mm/s and 300 mm/s². Authorized restart reached ready without warnings;
+  effective buffer=0, Belay/sync/touch enabled, unloaded at gate1, heaters off.
+  No post-correction full transport test was run. Installer regeneration needs
+  the explicit override preserved because the current upstream template omits it.
+
 ## Superseded statements
 
 - Current nozzle is not unknown: configuration is 0.4 mm.

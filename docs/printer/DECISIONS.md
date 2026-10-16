@@ -131,3 +131,11 @@ These are current choices, not a list of every experiment.
     Keep installer choices synchronized so regeneration retains the feature.
     Clear-path success does not establish obstruction sensitivity or guarantee
     recovery: another lane's protruding filament can require manual clearing.
+32. FV3 passive rewinders return filament to the spool and require
+    `filament_buffer: 0` in `[mmu_unit unit0]`. Belay's `buffer: unit0`
+    association is a separate sync-feedback mechanism and stays enabled.
+    Do not infer effective runtime state from installer choices alone: the
+    current v4 hardware template omits the filament-buffer design attribute,
+    allowing TradRack's True vendor default to override the intended setup.
+    Preserve/reapply this explicit configuration field after regeneration;
+    do not modify upstream Happy Hare code to work around it.
