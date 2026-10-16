@@ -59,18 +59,21 @@ toolchange baseline.
   macro variables, cutter hooks and initial saved calibration/metadata match.
   Retired global v3 motion caps and upstream LED/UI behavior are separate
   architectural changes, not identical behavior.
-- **Pending correction:** v3 encoder preload used normal gate pickup100 mm,
+- **Corrected and runtime-verified:** v3 encoder preload used normal gate pickup100 mm,
   parking48 mm retraction and preload_attempts5. V4 actually inherits encoder
   when gate_preload_endstop is blank and uses its own profile300/-10/2. The
   earlier claim that its retry difference was inactive was incorrect. Proposed
-  profile100/-48/5 and installer choices passed offline initialization; staged
-  outside active configuration, awaiting owner approval/restart.
-- **Pending state restoration:** gate1's original eSun RED / ABS+ / f24343e3 /
+  profile100/-48/5 and installer choices passed offline initialization, were
+  applied with owner authorization and verified after restart. No physical
+  preload or load test was sent.
+- **State restored and runtime-verified:** gate1's original eSun RED / ABS+ / f24343e3 /
   260 C metadata survived migration but was cleared by v4 after a failed pickup
   marked it empty at21:05. V3 retained metadata on an availability change.
-  Current gate1 identity is blank and temperature200 C. Proposed restoration
-  is prepared but unsent; future pickup failures can clear it again because
-  this is upstream behavior, not a one-time migration loss. Detailed audit
+  Restored its original identity and temperature through the authorized
+  `MMU_GATE_MAP` command; all four values survived restart. Ended ready/homed
+  at gate1, unloaded, heaters off, with no configuration warnings. Future pickup
+  failures can clear metadata again because this is upstream behavior, not a
+  one-time migration loss. Detailed audit
   artifacts and independent review are private under `../backups/`.
 - Pre-upgrade recovery assets and the detailed migration handoff are local in
   `../backups/`; they are private and outside this public repository.

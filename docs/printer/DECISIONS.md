@@ -139,3 +139,8 @@ These are current choices, not a list of every experiment.
     allowing TradRack's True vendor default to override the intended setup.
     Preserve/reapply this explicit configuration field after regeneration;
     do not modify upstream Happy Hare code to work around it.
+33. Preserve the effective v3 encoder preload behavior with v4
+    gate_preload_homing_max100, gate_preload_parking_distance-48 and
+    gate_preload_attempts5. V3 used its normal gate load/unload routine on this
+    hardware, so copying its separate unused preload300/-10 values did not
+    preserve behavior. Verify inherited/default values after initialization.

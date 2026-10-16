@@ -186,6 +186,13 @@ identities remain approximate.
   Old global movement caps are retired upstream even though current normal
   move settings preserve the former limits. No printer state changed in this audit.
 
+- Applied the owner's approved audit corrections: encoder preload100/-48/5,
+  with installer choices synchronized, and restored gate1 eSun RED/ABS+/
+  f24343e3/260 C metadata through `MMU_GATE_MAP`. Authorized restart passed
+  without warnings and verified both corrections plus buffer0, loading300/300,
+  Belay/sync/touch enabled. Ended homed at gate1 unloaded, with both heaters off.
+  No physical preload/full-load test was performed during this correction.
+
 ## Superseded statements
 
 - Current nozzle is not unknown: configuration is 0.4 mm.
